@@ -1,0 +1,2 @@
+(window["webpackJsonpnote-book"]=window["webpackJsonpnote-book"]||[]).push([[0],{3:function(e,n,o){e.exports=o(8)},8:function(e,n,o){"use strict";o.r(n);var t=o(0),r=o.n(t),c=o(2),u=function(){return r.a.createElement("div",null,"Home")};o.n(c).a.render(r.a.createElement(u,null),document.getElementById("root"))}},[[3,1,2]]]);
+//# sourceMappingURL=main.55d71147.chunk.js.map
