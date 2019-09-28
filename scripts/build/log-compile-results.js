@@ -1,6 +1,6 @@
 const path = require('path')
 const chalk = require('react-dev-utils/chalk')
-const paths = require('../../config/paths')
+const paths = require('../scripts-config/paths')
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions')
 const { printFileSizesAfterBuild } = require('react-dev-utils/FileSizeReporter')
 const printBuildError = require('react-dev-utils/printBuildError')

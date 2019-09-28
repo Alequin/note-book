@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-const paths = require('../../config/paths')
+const paths = require('../scripts-config/paths')
 
 /**
  * Remove all content created by previous builds

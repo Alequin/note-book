@@ -1,5 +1,5 @@
 const browsersHelper = require('react-dev-utils/browsersHelper')
-const paths = require('../../config/paths')
+const paths = require('../scripts-config/paths')
 const isInteractive = process.stdout.isTTY
 
 /** create-react-app require that you explicitly set browsers

@@ -1,4 +1,4 @@
-const paths = require('../../config/paths')
+const paths = require('../scripts-config/paths')
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles')
 
 const checkRequiredFilesExist = () => {

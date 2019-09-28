@@ -9,10 +9,10 @@ process.on('unhandledRejection', err => {
   throw err
 })
 // Ensure environment variables are read.
-require('../../config/env')
+require('../scripts-config/env')
 
 // Generate configuration
-const CONFIG = require('../../config/webpack.config')('production')
+const CONFIG = require('../scripts-config/webpack.config')('production')
 
 const asyncPipe = require('./utils/async-pipe')
 
