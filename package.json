@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "./build",
   "dependencies": {
+    "async-flow": "file:./local-packages/async-flow",
+    "json-files": "file:./local-packages/json-files",
     "@babel/core": "7.6.0",
     "@svgr/webpack": "4.3.2",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
@@ -63,9 +65,10 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node scripts/start",
     "build": "node scripts/build/build-all",
-    "test": "jest"
+    "test": "jest",
+    "remove-old-build-files": "node scripts/remove-old-build-files"
   },
   "eslintConfig": {
     "extends": "react-app"

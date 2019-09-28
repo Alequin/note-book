@@ -11,15 +11,19 @@ process.on('unhandledRejection', err => {
 // Ensure environment variables are read.
 require('../scripts-config/env')
 
+const asyncFlow = require('async-flow')
+
 // Generate configuration
 const CONFIG = require('../scripts-config/webpack.config')('production')
+const { RAW_NOTES_DIRECTORY } = require('../../config/environment')
 
-const asyncPipe = require('./utils/async-pipe')
+const buildJsonNotesFile = require('./build-json-notes-file/build-json-notes-file')
 
-asyncPipe(
+asyncFlow(
+  () => buildJsonNotesFile(RAW_NOTES_DIRECTORY),
   require('./check-required-files-exist'),
   require('./check-browsers'),
-  require('./remove-old-files'),
+  require('../remove-old-build-files'),
   require('./copy-public-folder'),
   require('./run-webpack-compiler')(CONFIG),
   require('./log-compile-results')(CONFIG),

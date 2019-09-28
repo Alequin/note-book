@@ -1,0 +1,6 @@
+{
+  "name": "async-flow",
+  "version": "1.0.0",
+  "main": "async-flow.js",
+  "license": "ISC"
+}
