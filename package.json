@@ -2,7 +2,7 @@
   "name": "note-book",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./build",
+  "homepage": "https://alequin.github.io/note-book",
   "dependencies": {
     "async-flow": "file:./local-packages/async-flow",
     "json-files": "file:./local-packages/json-files",
