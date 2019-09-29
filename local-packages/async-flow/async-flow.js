@@ -1,12 +1,12 @@
 const asyncFlow = (...allFunctions) => {
-  const functionCaller = async (args, functions) => {
+  const functionCaller = async (functions, args) => {
     if (functions.length <= 0) return args
     const [func, ...remainingFunctions] = functions
     const nextArgs = await func(args)
-    return functionCaller(nextArgs, remainingFunctions)
+    return functionCaller(remainingFunctions, nextArgs)
   }
 
-  return (...initialArgs) => functionCaller(initialArgs, allFunctions)
+  return (...initialArgs) => functionCaller(allFunctions, ...initialArgs)
 }
 
 module.exports = asyncFlow
