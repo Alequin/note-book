@@ -1,5 +1,5 @@
 const { startCase } = require('lodash')
-const writeJsonFile = require('json-files/write-file')
+const fs = require('fs-extra')
 const allFilesInDirectory = require('./all-files-in-directory')
 const fileNameFromPath = require('./file-name-from-path')
 const {
@@ -14,7 +14,7 @@ const buildJsonNotesFile = async directory => {
     name: startCase(fileNameWithoutExtension(filePath))
   }))
 
-  writeJsonFile(ROOTS_JSON_FILE, filesWithTrimmedRoots)
+  fs.writeJsonSync(ROOTS_JSON_FILE, filesWithTrimmedRoots)
 }
 
 const fileNameWithoutExtension = filePath =>
