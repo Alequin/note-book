@@ -1,4 +1,6 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 process.env.IS_TEST = true
-// Make test dir for raw-notes tests if it does not exist
-!fs.existsSync('./test-raw-notes') && fs.mkdirSync('./test-raw-notes')
+// Clean up any old test raw-notes files and make a clean test dir for raw-notes tests
+fs.existsSync('./test-raw-notes')
+  ? fs.emptyDirSync('./test-raw-notes')
+  : fs.mkdirSync('./test-raw-notes')

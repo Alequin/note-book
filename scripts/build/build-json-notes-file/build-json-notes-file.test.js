@@ -29,11 +29,24 @@ describe('buildJsonNotesFile', () => {
     beforeEach(() => {
       // Create files to test against
       ;[
-        `${RAW_NOTES_DIRECTORY}/file-0.md`,
-        `${RAW_NOTES_DIRECTORY}/lvl-1/file-1.md`,
-        `${RAW_NOTES_DIRECTORY}/lvl-1/lvl-2/file-2.md`,
-        `${RAW_NOTES_DIRECTORY}/.private-file`
-      ].map(fs.outputFileSync)
+        {
+          name: `${RAW_NOTES_DIRECTORY}/file-0.md`,
+          content: '# markdown 0'
+        },
+        {
+          name: `${RAW_NOTES_DIRECTORY}/lvl-1/file-1.md`,
+          content: '**markdown 1**'
+        },
+        {
+          name: `${RAW_NOTES_DIRECTORY}/lvl-1/lvl-2/file-2.md`,
+          content: '~~markdown 2~~'
+        },
+        {
+          name: `${RAW_NOTES_DIRECTORY}/.private-file`
+        }
+      ].map(({ name, content }) =>
+        !content ? fs.outputFileSync(name) : fs.outputFileSync(name, content)
+      )
     })
 
     it('adds the paths of all the markdown files to the json file', async () => {
@@ -58,7 +71,13 @@ describe('buildJsonNotesFile', () => {
       const privateFiles = actual.filter(({ name }) => name === 'Private File')
       expect(privateFiles).toHaveLength(0)
     })
-  })
 
-  it('includes the contents of each markdown file', async () => {})
+    it('includes the contents of each markdown file', async () => {
+      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      const actual = fs.readJSONSync(ROOTS_JSON_FILE)
+      expect(actual[0].content).toBe('# markdown 0')
+      expect(actual[1].content).toBe('**markdown 1**')
+      expect(actual[2].content).toBe('~~markdown 2~~')
+    })
+  })
 })
