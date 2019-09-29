@@ -15,12 +15,9 @@ const asyncFlow = require('async-flow')
 
 // Generate configuration
 const CONFIG = require('../scripts-config/webpack.config')('production')
-const { RAW_NOTES_DIRECTORY } = require('../../config/environment')
-
-const buildJsonNotesFile = require('./build-json-notes-file/build-json-notes-file')
 
 asyncFlow(
-  () => buildJsonNotesFile(RAW_NOTES_DIRECTORY),
+  require('./build-json-notes-file/build-json-notes-file'),
   require('./check-required-files-exist'),
   require('./check-browsers'),
   require('../remove-old-build-files'),

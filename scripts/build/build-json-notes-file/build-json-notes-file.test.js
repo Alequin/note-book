@@ -13,13 +13,13 @@ describe('buildJsonNotesFile', () => {
   })
 
   it('creates a roots.json file', async () => {
-    await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+    await buildJsonNotesFile()
     expect(fs.existsSync(ROOTS_JSON_FILE)).toBe(true)
   })
 
   describe('When the raw-notes-directory is empty', () => {
     it('creates an json file with an empty list', async () => {
-      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      await buildJsonNotesFile()
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       expect(actual).toEqual([])
     })
@@ -50,7 +50,7 @@ describe('buildJsonNotesFile', () => {
     })
 
     it('adds the paths of all the markdown files to the json file', async () => {
-      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      await buildJsonNotesFile()
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       expect(actual[0].path).toBe('file-0.md')
       expect(actual[1].path).toBe('lvl-1/file-1.md')
@@ -58,7 +58,7 @@ describe('buildJsonNotesFile', () => {
     })
 
     it('includes the files name', async () => {
-      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      await buildJsonNotesFile()
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       expect(actual[0].name).toBe('File 0')
       expect(actual[1].name).toBe('File 1')
@@ -66,14 +66,14 @@ describe('buildJsonNotesFile', () => {
     })
 
     it('ignores private files', async () => {
-      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      await buildJsonNotesFile()
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       const privateFiles = actual.filter(({ name }) => name === 'Private File')
       expect(privateFiles).toHaveLength(0)
     })
 
     it('includes the contents of each markdown file', async () => {
-      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      await buildJsonNotesFile()
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       expect(actual[0].content).toBe('# markdown 0')
       expect(actual[1].content).toBe('**markdown 1**')
@@ -81,7 +81,7 @@ describe('buildJsonNotesFile', () => {
     })
 
     it('adds the lastModified date', async () => {
-      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      await buildJsonNotesFile()
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       const currentDate = new Date().toISOString().split('T')[0]
 
@@ -107,7 +107,7 @@ describe('buildJsonNotesFile', () => {
         }
       ])
 
-      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      await buildJsonNotesFile()
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       const currentDate = new Date().toISOString().split('T')[0]
 
@@ -139,7 +139,7 @@ This is more content
     })
 
     it('Identifes the tags defined in the markdown file', async () => {
-      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      await buildJsonNotesFile()
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       expect(actual[0].tags).toEqual(['tag1', 'tag-2', 'tag 3', 'tag_4'])
     })

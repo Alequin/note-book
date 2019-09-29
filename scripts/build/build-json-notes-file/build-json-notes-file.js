@@ -11,9 +11,9 @@ const {
   RAW_NOTES_DIRECTORY
 } = require('../../../config/environment')
 
-const fetchAllMarkdownFiles = async directory => ({
-  originalDirectory: directory,
-  filePaths: await allFilesInDirectory(directory)
+const fetchAllMarkdownFiles = async () => ({
+  originalDirectory: RAW_NOTES_DIRECTORY,
+  filePaths: await allFilesInDirectory(RAW_NOTES_DIRECTORY)
 })
 
 const makeNotesFileObject = ({ originalDirectory, filePaths }) =>
@@ -49,5 +49,4 @@ const buildJsonNotesFile2 = asyncFlow(
   writeJsonFile
 )
 
-if (require.main === module) buildJsonNotesFile2(RAW_NOTES_DIRECTORY)
 module.exports = buildJsonNotesFile2
