@@ -79,6 +79,16 @@ describe('buildJsonNotesFile', () => {
       expect(actual[1].content).toBe('**markdown 1**')
       expect(actual[2].content).toBe('~~markdown 2~~')
     })
+
+    it('adds the last-update-date', async () => {
+      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      const actual = fs.readJSONSync(ROOTS_JSON_FILE)
+      const currentDate = new Date().toISOString().split('T')[0]
+
+      expect(actual[0].lastModified).toBe(currentDate)
+      expect(actual[1].lastModified).toBe(currentDate)
+      expect(actual[2].lastModified).toBe(currentDate)
+    })
   })
 
   describe('When the raw-notes-directory contains files that have tags', () => {
