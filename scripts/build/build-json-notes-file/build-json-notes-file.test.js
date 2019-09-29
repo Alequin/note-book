@@ -9,7 +9,8 @@ const buildJsonNotesFile = require('./build-json-notes-file')
 
 describe('buildJsonNotesFile', () => {
   afterEach(() => {
-    fs.existsSync(ROOTS_JSON_FILE) && fs.unlinkSync(ROOTS_JSON_FILE)
+    fs.emptyDirSync(RAW_NOTES_DIRECTORY)
+    fs.removeSync(ROOTS_JSON_FILE)
   })
 
   it('creates a roots.json file', async () => {
@@ -17,44 +18,48 @@ describe('buildJsonNotesFile', () => {
     expect(fs.existsSync(ROOTS_JSON_FILE)).toBe(true)
   })
 
-  it('creates an json file with an empty list if there are no markdown files', async () => {
-    await buildJsonNotesFile(`${RAW_NOTES_DIRECTORY}/test-lvl-1-1`)
-    const actual = readJsonFile(ROOTS_JSON_FILE)
-    expect(actual).toEqual([])
+  describe('When the raw-notes-directory is empty', () => {
+    it('creates an json file with an empty list', async () => {
+      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      const actual = readJsonFile(ROOTS_JSON_FILE)
+      expect(actual).toEqual([])
+    })
   })
 
-  it('adds the paths of all the markdown files to the json file', async () => {
-    await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
-    const actual = readJsonFile(ROOTS_JSON_FILE)
-    expect(actual[0].path).toBe('test-lvl-1/lvl-1-simple-markdown.md')
-    expect(actual[1].path).toBe('test-lvl-1/test-lvl-2/simple-markdown.md')
-    expect(actual[2].path).toBe('test-lvl-1/test-lvl-2/test-file.md')
+  describe('When the raw-notes-directory contains files', () => {
+    beforeEach(() => {
+      // Create files to test against
+      ;[
+        `${RAW_NOTES_DIRECTORY}/file-0.md`,
+        `${RAW_NOTES_DIRECTORY}/lvl-1/file-1.md`,
+        `${RAW_NOTES_DIRECTORY}/lvl-1/lvl-2/file-2.md`,
+        `${RAW_NOTES_DIRECTORY}/.private-file`
+      ].map(fs.outputFileSync)
+    })
+
+    it('adds the paths of all the markdown files to the json file', async () => {
+      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      const actual = readJsonFile(ROOTS_JSON_FILE)
+      expect(actual[0].path).toBe('file-0.md')
+      expect(actual[1].path).toBe('lvl-1/file-1.md')
+      expect(actual[2].path).toBe('lvl-1/lvl-2/file-2.md')
+    })
+
+    it('includes the files name', async () => {
+      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      const actual = readJsonFile(ROOTS_JSON_FILE)
+      expect(actual[0].name).toBe('File 0')
+      expect(actual[1].name).toBe('File 1')
+      expect(actual[2].name).toBe('File 2')
+    })
+
+    it('ignores private files', async () => {
+      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      const actual = readJsonFile(ROOTS_JSON_FILE)
+      const privateFiles = actual.filter(({ name }) => name === 'Private File')
+      expect(privateFiles).toHaveLength(0)
+    })
   })
 
-  it('includes the files name', async () => {
-    await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
-    const actual = readJsonFile(ROOTS_JSON_FILE)
-    expect(actual[0].name).toBe('Lvl 1 Simple Markdown')
-    expect(actual[1].name).toBe('Simple Markdown')
-    expect(actual[2].name).toBe('Test File')
-  })
-
-  it('ignores private files', async () => {
-    const privateFileName = 'private-file-to-ignore'
-    const privateFileDir = `${RAW_NOTES_DIRECTORY}/test-lvl-1-1`
-    const privateFilePath = `${privateFileDir}/.${privateFileName}`
-
-    // Make a private file, which will be ignored.
-    // There must be a private file to ignore for
-    // the test to be valid
-    fs.writeFileSync(privateFilePath)
-
-    await buildJsonNotesFile(privateFileDir)
-    const actual = readJsonFile(ROOTS_JSON_FILE)
-    const privateFiles = actual.filter(({ name }) => name === privateFileName)
-    expect(privateFiles).toHaveLength(0)
-
-    // Delete private file after use
-    fs.removeSync(privateFilePath)
-  })
+  it('includes the contents of each markdown file', async () => {})
 })
