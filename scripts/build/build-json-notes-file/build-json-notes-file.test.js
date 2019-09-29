@@ -80,12 +80,38 @@ describe('buildJsonNotesFile', () => {
       expect(actual[2].content).toBe('~~markdown 2~~')
     })
 
-    it('adds the last-update-date', async () => {
+    it('adds the lastModified date', async () => {
       await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
       const actual = fs.readJSONSync(ROOTS_JSON_FILE)
       const currentDate = new Date().toISOString().split('T')[0]
 
       expect(actual[0].lastModified).toBe(currentDate)
+      expect(actual[1].lastModified).toBe(currentDate)
+      expect(actual[2].lastModified).toBe(currentDate)
+    })
+
+    it('does not update the lastModified date if the markdown file does not change', async () => {
+      // Make an old JSON file
+      fs.writeJSONSync(ROOTS_JSON_FILE, [
+        {
+          path: 'file-0.md',
+          name: 'File 0',
+          content: '# markdown 0',
+          lastModified: '2000-01-01'
+        },
+        {
+          path: 'file-1.md',
+          name: 'File 1',
+          content: '**markdown 1** but this content will be changed',
+          lastModified: '2000-01-01'
+        }
+      ])
+
+      await buildJsonNotesFile(RAW_NOTES_DIRECTORY)
+      const actual = fs.readJSONSync(ROOTS_JSON_FILE)
+      const currentDate = new Date().toISOString().split('T')[0]
+
+      expect(actual[0].lastModified).toBe('2000-01-01')
       expect(actual[1].lastModified).toBe(currentDate)
       expect(actual[2].lastModified).toBe(currentDate)
     })
