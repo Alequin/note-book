@@ -8,7 +8,7 @@
     "build": "node scripts/build/build-all",
     "test": "jest",
     "remove-old-build-files": "node scripts/remove-old-build-files",
-    "build-roots-json-file": "node scripts/build/build-json-notes-file/build-json-notes-file"
+    "build-routes-json-file": "node scripts/build/build-routes-json-file/build-routes-json-file"
   },
   "dependencies": {
     "@babel/core": "7.6.0",

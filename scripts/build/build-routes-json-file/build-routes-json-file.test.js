@@ -1,26 +1,26 @@
 const fs = require("fs-extra");
 const {
-  ROOTS_JSON_FILE,
+  ROUTES_JSON_FILE,
   RAW_NOTES_DIRECTORY
 } = require("../../../config/environment");
 
-const buildJsonNotesFile = require("./build-json-notes-file");
+const buildRoutesJsonFile = require("./build-routes-json-file");
 
-describe("buildJsonNotesFile", () => {
+describe("buildRoutesJsonFile", () => {
   afterEach(() => {
     fs.emptyDirSync(RAW_NOTES_DIRECTORY);
-    fs.removeSync(ROOTS_JSON_FILE);
+    fs.removeSync(ROUTES_JSON_FILE);
   });
 
-  it("creates a roots.json file", async () => {
-    await buildJsonNotesFile();
-    expect(fs.existsSync(ROOTS_JSON_FILE)).toBe(true);
+  it("creates a routes.json file", async () => {
+    await buildRoutesJsonFile();
+    expect(fs.existsSync(ROUTES_JSON_FILE)).toBe(true);
   });
 
   describe("When the raw-notes-directory is empty", () => {
     it("creates an json file with an empty list", async () => {
-      await buildJsonNotesFile();
-      const actual = fs.readJSONSync(ROOTS_JSON_FILE);
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
       expect(actual).toEqual([]);
     });
   });
@@ -50,39 +50,39 @@ describe("buildJsonNotesFile", () => {
     });
 
     it("adds the paths of all the markdown files to the json file", async () => {
-      await buildJsonNotesFile();
-      const actual = fs.readJSONSync(ROOTS_JSON_FILE);
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
       expect(actual[0].path).toBe("file-0");
       expect(actual[1].path).toBe("lvl-1/file-1");
       expect(actual[2].path).toBe("lvl-1/lvl-2/file-2");
     });
 
     it("includes the files name", async () => {
-      await buildJsonNotesFile();
-      const actual = fs.readJSONSync(ROOTS_JSON_FILE);
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
       expect(actual[0].name).toBe("File 0");
       expect(actual[1].name).toBe("File 1");
       expect(actual[2].name).toBe("File 2");
     });
 
     it("ignores private files", async () => {
-      await buildJsonNotesFile();
-      const actual = fs.readJSONSync(ROOTS_JSON_FILE);
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
       const privateFiles = actual.filter(({ name }) => name === "Private File");
       expect(privateFiles).toHaveLength(0);
     });
 
     it("includes the contents of each markdown file", async () => {
-      await buildJsonNotesFile();
-      const actual = fs.readJSONSync(ROOTS_JSON_FILE);
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
       expect(actual[0].content).toBe("# markdown 0");
       expect(actual[1].content).toBe("**markdown 1**");
       expect(actual[2].content).toBe("~~markdown 2~~");
     });
 
     it("adds the lastModified date", async () => {
-      await buildJsonNotesFile();
-      const actual = fs.readJSONSync(ROOTS_JSON_FILE);
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
       const currentDate = new Date().toISOString().split("T")[0];
 
       expect(actual[0].lastModified).toBe(currentDate);
@@ -92,7 +92,7 @@ describe("buildJsonNotesFile", () => {
 
     it("does not update the lastModified date if the markdown file has not change", async () => {
       // Make an old JSON file
-      fs.writeJSONSync(ROOTS_JSON_FILE, [
+      fs.writeJSONSync(ROUTES_JSON_FILE, [
         {
           path: "file-0",
           name: "File 0",
@@ -107,8 +107,8 @@ describe("buildJsonNotesFile", () => {
         }
       ]);
 
-      await buildJsonNotesFile();
-      const actual = fs.readJSONSync(ROOTS_JSON_FILE);
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
       const currentDate = new Date().toISOString().split("T")[0];
 
       expect(actual[0].lastModified).toBe("2000-01-01");
@@ -139,8 +139,8 @@ This is more content
     });
 
     it("Identifes the tags defined in the markdown file", async () => {
-      await buildJsonNotesFile();
-      const actual = fs.readJSONSync(ROOTS_JSON_FILE);
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
       expect(actual[0].tags).toEqual(["tag1", "tag-2", "tag 3", "tag_4"]);
     });
   });
