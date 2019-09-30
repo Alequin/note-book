@@ -22,7 +22,7 @@ const makeNotesFileObject = ({ originalDirectory, filePaths }) =>
     const content = readMarkdownFile(filePath);
     return {
       path: removeExtensionFromFilePath(filePath).replace(
-        `${originalDirectory}/`,
+        `${originalDirectory}`,
         ""
       ),
       name: startCase(fileNameWithoutExtension(filePath)),

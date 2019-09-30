@@ -8,7 +8,7 @@ const Roots = () => (
       <Route
         key={index}
         exact
-        path={`/${path}`}
+        path={path}
         render={() => <div>{content}</div>}
       />
     ))}

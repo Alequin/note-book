@@ -52,9 +52,9 @@ describe("buildRoutesJsonFile", () => {
     it("adds the paths of all the markdown files to the json file", async () => {
       await buildRoutesJsonFile();
       const actual = fs.readJSONSync(ROUTES_JSON_FILE);
-      expect(actual[0].path).toBe("file-0");
-      expect(actual[1].path).toBe("lvl-1/file-1");
-      expect(actual[2].path).toBe("lvl-1/lvl-2/file-2");
+      expect(actual[0].path).toBe("/file-0");
+      expect(actual[1].path).toBe("/lvl-1/file-1");
+      expect(actual[2].path).toBe("/lvl-1/lvl-2/file-2");
     });
 
     it("includes the files name", async () => {
@@ -94,7 +94,7 @@ describe("buildRoutesJsonFile", () => {
       // Make an old JSON file
       fs.writeJSONSync(ROUTES_JSON_FILE, [
         {
-          path: "file-0",
+          path: "/file-0",
           name: "File 0",
           content: "# markdown 0",
           lastModified: "2000-01-01"
