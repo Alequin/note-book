@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://alequin.github.io/note-book",
+  "scripts": {
+    "start": "node scripts/start",
+    "build": "node scripts/build/build-all",
+    "test": "jest",
+    "remove-old-build-files": "node scripts/remove-old-build-files",
+    "build-roots-json-file": "node scripts/build/build-json-notes-file/build-json-notes-file"
+  },
   "dependencies": {
     "@babel/core": "7.6.0",
     "@svgr/webpack": "4.3.2",
@@ -65,12 +72,7 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "devDependencies": {},
-  "scripts": {
-    "start": "node scripts/start",
-    "build": "node scripts/build/build-all",
-    "test": "jest",
-    "remove-old-build-files": "node scripts/remove-old-build-files"
-  },
+  
   "eslintConfig": {
     "extends": "react-app"
   },
