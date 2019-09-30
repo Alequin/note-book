@@ -1,16 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import RouteExplorer from "./route-explorer";
 import ROOTS from "./routes.json";
 
 const Roots = () => (
   <Router>
+    <Route exact path={"route-explorer"}>
+      <RouteExplorer />
+    </Route>
     {ROOTS.map(({ path, content }, index) => (
-      <Route
-        key={index}
-        exact
-        path={path}
-        render={() => <div>{content}</div>}
-      />
+      <Route key={index} exact path={path}>
+        <div>{content}</div>
+      </Route>
     ))}
   </Router>
 );
