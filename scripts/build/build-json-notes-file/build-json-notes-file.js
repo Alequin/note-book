@@ -48,11 +48,12 @@ const addLastModifiedDateToNoteFileObjects = fileObjects => {
 const writeJsonFile = fileObjects =>
   fs.writeJsonSync(ROOTS_JSON_FILE, fileObjects);
 
-const buildJsonNotesFile2 = asyncFlow(
+const buildJsonNotesFile = asyncFlow(
   fetchAllMarkdownFiles,
   makeNotesFileObject,
   addLastModifiedDateToNoteFileObjects,
   writeJsonFile
 );
 
-module.exports = buildJsonNotesFile2;
+if (require.module === "main") buildJsonNotesFile();
+module.exports = buildJsonNotesFile;
