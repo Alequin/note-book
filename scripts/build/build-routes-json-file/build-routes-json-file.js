@@ -20,13 +20,15 @@ const fetchAllMarkdownFiles = async () => ({
 const makeNotesFileObject = ({ originalDirectory, filePaths }) =>
   filePaths.map(filePath => {
     const content = readMarkdownFile(filePath);
+    const path = removeExtensionFromFilePath(filePath).replace(
+      `${originalDirectory}/`,
+      ""
+    );
     return {
-      path: removeExtensionFromFilePath(filePath).replace(
-        `${originalDirectory}`,
-        ""
-      ),
-      name: startCase(fileNameWithoutExtension(filePath)),
+      path: `/${path}`,
       content,
+      pathSegments: path.split("/"),
+      name: startCase(fileNameWithoutExtension(filePath)),
       tags: tags(content)
     };
   });

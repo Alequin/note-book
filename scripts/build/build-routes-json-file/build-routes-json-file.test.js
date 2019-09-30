@@ -49,6 +49,14 @@ describe("buildRoutesJsonFile", () => {
       );
     });
 
+    it("adds the paths segments for all the markdown files", async () => {
+      await buildRoutesJsonFile();
+      const actual = fs.readJSONSync(ROUTES_JSON_FILE);
+      expect(actual[0].pathSegments).toEqual(["file-0"]);
+      expect(actual[1].pathSegments).toEqual(["lvl-1", "file-1"]);
+      expect(actual[2].pathSegments).toEqual(["lvl-1", "lvl-2", "file-2"]);
+    });
+
     it("adds the paths of all the markdown files to the json file", async () => {
       await buildRoutesJsonFile();
       const actual = fs.readJSONSync(ROUTES_JSON_FILE);
