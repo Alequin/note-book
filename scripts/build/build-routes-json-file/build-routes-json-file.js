@@ -8,7 +8,7 @@ const readMarkdownFile = require("./read-markdown-file");
 const tags = require("./tags/tags");
 const markdownLastModifiedDate = require("./markdown-last-modified-date");
 const {
-  ROOTS_JSON_FILE,
+  ROUTES_JSON_FILE,
   RAW_NOTES_DIRECTORY
 } = require("../../../config/environment");
 
@@ -38,7 +38,7 @@ const fileNameWithoutExtension = flow(
 
 const addLastModifiedDateToNoteFileObjects = fileObjects => {
   const previousJsonFile =
-    fs.existsSync(ROOTS_JSON_FILE) && fs.readJSONSync(ROOTS_JSON_FILE);
+    fs.existsSync(ROUTES_JSON_FILE) && fs.readJSONSync(ROUTES_JSON_FILE);
   return fileObjects.map(file => ({
     ...file,
     lastModified: markdownLastModifiedDate(file, previousJsonFile)
@@ -46,14 +46,15 @@ const addLastModifiedDateToNoteFileObjects = fileObjects => {
 };
 
 const writeJsonFile = fileObjects =>
-  fs.writeJsonSync(ROOTS_JSON_FILE, fileObjects);
+  fs.writeJsonSync(ROUTES_JSON_FILE, fileObjects);
 
-const buildJsonNotesFile = asyncFlow(
+const buildRoutesJsonFile = asyncFlow(
   fetchAllMarkdownFiles,
   makeNotesFileObject,
   addLastModifiedDateToNoteFileObjects,
   writeJsonFile
 );
 
-if (require.module === "main") buildJsonNotesFile();
-module.exports = buildJsonNotesFile;
+if (require.main === module) buildRoutesJsonFile();
+
+module.exports = buildRoutesJsonFile;

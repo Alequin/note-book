@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ROOTS from "./roots.json";
+import ROOTS from "./routes.json";
 
 const Roots = () => (
   <Router>
