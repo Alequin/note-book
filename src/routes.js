@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import RouteExplorer from "./route-explorer";
+import RouteExplorer from "./route-explorer/route-explorer";
 import ROOTS from "./routes.json";
 
 const Roots = () => (
   <Router>
-    <Route exact path={"route-explorer"}>
+    <Route path="/route-explorer">
       <RouteExplorer />
     </Route>
     {ROOTS.map(({ path, content }, index) => (
