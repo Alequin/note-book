@@ -5,7 +5,7 @@ import sortBy from "lodash/sortBy";
 import filterRoutesToDisplay from "./filter-routes-to-display";
 import itemsToDisplay from "./items-to-display";
 
-import images from "images";
+import images from "assets/images";
 import ROOTS from "../routes.json";
 
 const useCurrentRoute = () => {
