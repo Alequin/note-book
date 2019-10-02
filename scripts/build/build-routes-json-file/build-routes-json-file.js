@@ -1,9 +1,9 @@
 const { startCase, flow } = require("lodash");
 const fs = require("fs-extra");
 const asyncFlow = require("async-flow");
+const removeExtensionFromFilePath = require("file-path-manipulation/remove-extension-from-file-path");
+const fileNameFromPath = require("file-path-manipulation/file-name-from-path");
 const allFilesInDirectory = require("./all-files-in-directory");
-const removeExtensionFromFilePath = require("./remove-extension-from-file-path");
-const fileNameFromPath = require("./file-name-from-path");
 const readMarkdownFile = require("./read-markdown-file");
 const tags = require("./tags/tags");
 const markdownLastModifiedDate = require("./markdown-last-modified-date");
