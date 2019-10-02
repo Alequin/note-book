@@ -7,6 +7,10 @@ const {
 const buildRoutesJsonFile = require("./build-routes-json-file");
 
 describe("buildRoutesJsonFile", () => {
+  beforeAll(() => {
+    !fs.existsSync(RAW_NOTES_DIRECTORY) && fs.mkdirSync(RAW_NOTES_DIRECTORY);
+  });
+
   afterEach(() => {
     fs.emptyDirSync(RAW_NOTES_DIRECTORY);
     fs.removeSync(ROUTES_JSON_FILE);
