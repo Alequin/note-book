@@ -5,9 +5,8 @@ import sortBy from "lodash/sortBy";
 import filterRoutesToDisplay from "./filter-routes-to-display";
 import itemsToDisplay from "./items-to-display";
 
+import images from "images";
 import ROOTS from "../routes.json";
-import FILE_IMG from "./file.png";
-import DIRECTORY_IMG from "./folder.png";
 
 const useCurrentRoute = () => {
   const [currentRoute, setCurrentRoute] = useState([]);
@@ -57,11 +56,11 @@ const CurrentRoute = ({ currentRoute }) => (
 );
 
 const Directory = ({ name, onSelect }) => (
-  <Item name={name} onSelect={onSelect} image={DIRECTORY_IMG} />
+  <Item name={name} onSelect={onSelect} image={images.folder} />
 );
 const File = ({ name, to }) => (
   <Link to={to}>
-    <Item name={name} image={FILE_IMG} />
+    <Item name={name} image={images.file} />
   </Link>
 );
 
