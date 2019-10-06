@@ -17,10 +17,11 @@ const asyncFlow = require("async-flow");
 const CONFIG = require("../scripts-config/webpack.config")("production");
 
 asyncFlow(
+  require("../remove-old-build-files"),
   require("./build-routes-json-file/build-routes-json-file"),
+  require("./build-encoded-image-json/build-encoded-image-json"),
   require("./check-required-files-exist"),
   require("./check-browsers"),
-  require("../remove-old-build-files"),
   require("./copy-public-folder"),
   require("./run-webpack-compiler")(CONFIG),
   require("./log-compile-results")(CONFIG),

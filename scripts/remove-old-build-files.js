@@ -1,15 +1,16 @@
-const fs = require('fs-extra')
-const paths = require('./scripts-config/paths')
+const fs = require("fs-extra");
+const { IMAGES_JSON_FILE, ROUTES_JSON_FILE } = require("../config/environment");
+const paths = require("./scripts-config/paths");
 
 /**
  * Remove all content created by previous builds
  */
-const removeOldBuildFiles = () => {
-  deleteIfExists(paths.appBuild)
-  deleteIfExists(paths.rootHtml)
-}
+const removeOldBuildFiles = () =>
+  [paths.appBuild, paths.rootHtml, IMAGES_JSON_FILE, ROUTES_JSON_FILE].forEach(
+    deleteIfExists
+  );
 
-const deleteIfExists = dir => fs.existsSync(dir) && fs.removeSync(dir)
+const deleteIfExists = dir => fs.existsSync(dir) && fs.removeSync(dir);
 
-if (require.main === module) removeOldBuildFiles()
-module.exports = removeOldBuildFiles
+if (require.main === module) removeOldBuildFiles();
+module.exports = removeOldBuildFiles;
