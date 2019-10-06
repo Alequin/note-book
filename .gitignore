@@ -1,8 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # build files
-./build/*
-./index.html
+build/*
+index.html
+assets/images.json
+src/routes.json
 
 # dependencies
 /node_modules
@@ -22,7 +24,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+.vscode
 play.js
 
 test-raw-notes*

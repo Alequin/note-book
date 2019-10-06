@@ -23,8 +23,14 @@ const ASSETS_DIRECTORY = newPath({
   standardPath: "./assets"
 });
 
+const IMAGES_JSON_FILE = newPath({
+  forTests: "./mock-dirs/images.json",
+  standardPath: `./assets/images.json`
+});
+
 module.exports = Object.freeze({
   RAW_NOTES_DIRECTORY,
   ROUTES_JSON_FILE,
-  ASSETS_DIRECTORY
+  ASSETS_DIRECTORY,
+  IMAGES_JSON_FILE
 });
