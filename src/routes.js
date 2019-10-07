@@ -11,7 +11,7 @@ const Roots = () => (
       </Route>
       {ROOTS.map(({ path, content }, index) => (
         <Route key={index} exact path={path}>
-          <div>{content}</div>
+          <div dangerouslySetInnerHTML={{ __html: content }} />
         </Route>
       ))}
       <Route path="*">Route does not exist</Route>

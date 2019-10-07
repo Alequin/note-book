@@ -87,9 +87,9 @@ describe("buildRoutesJsonFile", () => {
     it("includes the contents of each markdown file", async () => {
       await buildRoutesJsonFile();
       const actual = fs.readJSONSync(ROUTES_JSON_FILE);
-      expect(actual[0].content).toBe("# markdown 0");
-      expect(actual[1].content).toBe("**markdown 1**");
-      expect(actual[2].content).toBe("~~markdown 2~~");
+      expect(actual[0].content).toEqual(`<h1 id="markdown-0">markdown 0</h1>`);
+      expect(actual[1].content).toBe("<p><strong>markdown 1</strong></p>");
+      expect(actual[2].content).toBe("<p><del>markdown 2</del></p>");
     });
 
     it("adds the lastModified date", async () => {
@@ -108,13 +108,14 @@ describe("buildRoutesJsonFile", () => {
         {
           path: "/file-0",
           name: "File 0",
-          content: "# markdown 0",
+          content: `<h1 id="markdown-0">markdown 0</h1>`,
           lastModified: "2000-01-01"
         },
         {
           path: "file-1",
           name: "File 1",
-          content: "**markdown 1** but this content will be changed",
+          content:
+            "<p><strong>markdown 1</strong></p> but this content will be changed",
           lastModified: "2000-01-01"
         }
       ]);
