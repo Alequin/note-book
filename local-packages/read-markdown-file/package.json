@@ -1,0 +1,6 @@
+{
+  "name": "read-markdown-file",
+  "version": "1.0.0",
+  "main": "read-markdown-file.js",
+  "license": "ISC"
+}
