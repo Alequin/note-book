@@ -14,14 +14,25 @@ const useCurrentRoute = () => {
   const addToCurrentRoute = newRouteSegment =>
     setCurrentRoute([...currentRoute, newRouteSegment]);
 
+  const resetToInitialRoute = () => setCurrentRoute([]);
+  const stepCurrentRouteBackBy = amount =>
+    setCurrentRoute(currentRoute.slice(0, -amount));
+
   return {
     currentRoute,
-    addToCurrentRoute
+    addToCurrentRoute,
+    resetToInitialRoute,
+    stepCurrentRouteBackBy
   };
 };
 
 const RouteExplorer = () => {
-  const { currentRoute, addToCurrentRoute } = useCurrentRoute();
+  const {
+    currentRoute,
+    addToCurrentRoute,
+    resetToInitialRoute,
+    stepCurrentRouteBackBy
+  } = useCurrentRoute();
 
   const directoriesAndFilesToDisplay = itemsToDisplay(
     filterRoutesToDisplay(currentRoute, ROOTS),
@@ -30,7 +41,11 @@ const RouteExplorer = () => {
 
   return (
     <>
-      <CurrentRoute currentRoute={currentRoute} />
+      <button onClick={resetToInitialRoute}>Return to route directory</button>
+      <CurrentRoute
+        currentRoute={currentRoute}
+        stepCurrentRouteBackBy={stepCurrentRouteBackBy}
+      />
       <ItemSection>
         {sortBy(
           directoriesAndFilesToDisplay,
@@ -51,8 +66,15 @@ const RouteExplorer = () => {
   );
 };
 
-const CurrentRoute = ({ currentRoute }) => (
-  <p>Current Path: /{currentRoute.join("/")}</p>
+const CurrentRoute = ({ currentRoute, stepCurrentRouteBackBy }) => (
+  <CurrentRouteSection>
+    Current Path: /
+    {currentRoute.map((pathSegment, index) => (
+      <BlankButton onClick={() => stepCurrentRouteBackBy(-index)}>
+        {pathSegment}/
+      </BlankButton>
+    ))}
+  </CurrentRouteSection>
 );
 
 const Directory = ({ name, onClick }) => (
@@ -78,7 +100,20 @@ const ItemSection = styled.section`
   grid-row-gap: 2vw;
 `;
 
-const ItemBox = styled.button`
+const CurrentRouteSection = styled.p`
+  display: flex;
+  alignitems: center;
+  font-size: 1rem;
+`;
+
+const BlankButton = styled.button`
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 1rem;
+`;
+
+const ItemBox = styled(BlankButton)`
   text-align: center;
   width: 100%;
   padding: 0;
