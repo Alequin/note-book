@@ -5,7 +5,6 @@ const markdownToHtml = require("./markdown-to-html");
 
 describe("markdownToHtml", () => {
   it("can transform markdown to html", () => {
-    fs.outputFileSync(IMAGES_JSON_FILE);
     fs.writeJsonSync(IMAGES_JSON_FILE, {
       dog: "dog-data-uri",
       cat: "cat-data-uri"
