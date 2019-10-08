@@ -14,6 +14,11 @@ const RAW_NOTES_DIRECTORY = newPath({
   standardPath: "./raw-notes"
 });
 
+const RAW_FLASH_CARDS_DIRECTORY = newPath({
+  forTests: "./mock-dirs/test-raw-flash-cards",
+  standardPath: "./raw-flash-cards"
+});
+
 const ROUTES_JSON_FILE = newPath({
   forTests: "./mock-dirs/test-routes.json",
   standardPath: "./src/routes.json"
@@ -29,10 +34,17 @@ const IMAGES_JSON_FILE = newPath({
   standardPath: `./assets/images.json`
 });
 
+const FLASH_CARDS_JSON_FILE = newPath({
+  forTests: "./mock-dirs/flash.json",
+  standardPath: "./src/flash-cards.json"
+});
+
 module.exports = Object.freeze({
   RAW_NOTES_DIRECTORY,
+  RAW_FLASH_CARDS_DIRECTORY,
   ROUTES_JSON_FILE,
   ASSETS_DIRECTORY,
   IMAGES_JSON_FILE,
+  FLASH_CARDS_JSON_FILE,
   isReactApp
 });
