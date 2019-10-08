@@ -2,6 +2,7 @@ const path = require("path");
 const ROOT_DIR = `${__dirname}/..`;
 
 const isTestEnvironment = process.env.IS_TEST;
+const isReactApp = process.title === "browser";
 
 const newPath = ({ forTests, standardPath }) =>
   isTestEnvironment && forTests
@@ -32,5 +33,6 @@ module.exports = Object.freeze({
   RAW_NOTES_DIRECTORY,
   ROUTES_JSON_FILE,
   ASSETS_DIRECTORY,
-  IMAGES_JSON_FILE
+  IMAGES_JSON_FILE,
+  isReactApp
 });

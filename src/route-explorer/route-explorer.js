@@ -56,11 +56,11 @@ const CurrentRoute = ({ currentRoute }) => (
 );
 
 const Directory = ({ name, onSelect }) => (
-  <Item name={name} onSelect={onSelect} image={images.folder} />
+  <Item name={name} onSelect={onSelect} image={images("folder")} />
 );
 const File = ({ name, to }) => (
   <Link to={to}>
-    <Item name={name} image={images.file} />
+    <Item name={name} image={images("file")} />
   </Link>
 );
 
