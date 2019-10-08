@@ -40,7 +40,7 @@ const RouteExplorer = () => {
             <Directory
               key={index + name}
               name={name}
-              onSelect={() => addToCurrentRoute(name)}
+              onClick={() => addToCurrentRoute(name)}
             />
           ) : (
             <File key={index + name} name={name} to={to}></File>
@@ -55,8 +55,8 @@ const CurrentRoute = ({ currentRoute }) => (
   <p>Current Path: /{currentRoute.join("/")}</p>
 );
 
-const Directory = ({ name, onSelect }) => (
-  <Item name={name} onSelect={onSelect} image={images("folder")} />
+const Directory = ({ name, onClick }) => (
+  <Item name={name} onClick={onClick} image={images("folder")} />
 );
 const File = ({ name, to }) => (
   <Link to={to}>
@@ -64,12 +64,8 @@ const File = ({ name, to }) => (
   </Link>
 );
 
-const Item = ({ name, onSelect, image }) => (
-  <ItemBox
-    tabIndex={0}
-    onKeyPress={onSelect && (event => event.key === "Enter" && onSelect())}
-    onClick={onSelect && (() => onSelect())}
-  >
+const Item = ({ name, onClick, image }) => (
+  <ItemBox onClick={onClick}>
     <img src={image}></img>
     <p>Name: {name}</p>
   </ItemBox>
@@ -82,8 +78,11 @@ const ItemSection = styled.section`
   grid-row-gap: 2vw;
 `;
 
-const ItemBox = styled.div`
+const ItemBox = styled.button`
   text-align: center;
+  width: 100%;
+  padding: 0;
+  background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.1);
   &:hover {
     border: 1px solid rgba(0, 0, 0, 0.3);
