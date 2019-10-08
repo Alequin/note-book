@@ -1,4 +1,5 @@
 const path = require("path");
+const { get } = require("lodash");
 const ROOT_DIR = `${__dirname}/..`;
 
 const isTestEnvironment = process.env.IS_TEST;
