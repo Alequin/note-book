@@ -78,8 +78,8 @@ const CurrentRoute = ({ currentRoute, stepCurrentRouteBackBy }) => (
   </CurrentRouteSection>
 );
 
-const Directory = ({ name, onClick }) => (
-  <Item name={name} onClick={onClick} image={images("folder")} />
+const Directory = ({ name, onSelect }) => (
+  <Item name={name} onSelect={onSelect} image={images("folder")} />
 );
 const File = ({ name, to }) => (
   <Link to={to}>
