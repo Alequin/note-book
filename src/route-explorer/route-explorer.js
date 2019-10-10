@@ -78,8 +78,8 @@ const CurrentRoute = ({ currentRoute, stepCurrentRouteBackBy }) => (
   </CurrentRouteSection>
 );
 
-const Directory = ({ name, onSelect }) => (
-  <Item name={name} onSelect={onSelect} image={images("folder")} />
+const Directory = ({ name, onClick }) => (
+  <Item name={name} onClick={onClick} image={images("folder")} />
 );
 const File = ({ name, to }) => (
   <Link to={to}>
@@ -88,10 +88,10 @@ const File = ({ name, to }) => (
 );
 
 const Item = ({ name, onClick, image }) => (
-  <ItemBox onClick={onClick}>
+  <ItemButton onClick={onClick}>
     <img src={image}></img>
     <p>Name: {name}</p>
-  </ItemBox>
+  </ItemButton>
 );
 
 const ItemSection = styled.section`
@@ -107,7 +107,7 @@ const CurrentRouteSection = styled.p`
   font-size: 1rem;
 `;
 
-const ItemBox = styled(BlankButton)`
+const ItemButton = styled(BlankButton)`
   text-align: center;
   width: 100%;
   padding: 0;
