@@ -8,7 +8,7 @@ const markdownToHtml = markdown =>
   mapHtmlImagePathsToDataUri(
     marked(markdown),
     createMarkdownToHtmlImageMap(markdown)
-  );
+  ).trim();
 
 const PATH_REGEX = /\((.+)\)/;
 const createMarkdownToHtmlImageMap = markdown => {

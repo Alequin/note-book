@@ -1,9 +1,13 @@
 const fs = require("fs-extra");
-const { IMAGES_JSON_FILE } = require("../../../../config/environment");
+const { IMAGES_JSON_FILE } = require("../../../config/environment");
 
 const markdownToHtml = require("./markdown-to-html");
 
 describe("markdownToHtml", () => {
+  afterEach(() => {
+    fs.removeSync(IMAGES_JSON_FILE);
+  });
+
   it("can transform markdown to html", () => {
     fs.writeJsonSync(IMAGES_JSON_FILE, {
       dog: "dog-data-uri",
@@ -22,8 +26,7 @@ This is text
   - sub list item one
   - sub list item two
 
-![cat-image](../../cat.png)
-    `;
+![cat-image](../../cat.png)`;
 
     const actual = markdownToHtml(markdown);
     expect(actual).toBe(`<h1 id="title">Title</h1>
@@ -37,8 +40,19 @@ This is text
 </ul>
 </li>
 </ul>
-<p><img src="cat-data-uri" alt="cat-image"></p>
-`);
+<p><img src="cat-data-uri" alt="cat-image"></p>`);
+
+    fs.removeSync(IMAGES_JSON_FILE);
+  });
+
+  it("should trim the resulting html", () => {
+    const markdown = `
+# Title
+
+`;
+
+    const actual = markdownToHtml(markdown);
+    expect(actual).toBe(`<h1 id="title">Title</h1>`);
 
     fs.removeSync(IMAGES_JSON_FILE);
   });
