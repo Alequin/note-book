@@ -33,7 +33,10 @@ This is an answer
     expect(fs.existsSync(FLASH_CARDS_JSON_FILE)).toBe(true);
     expect(fs.readJSONSync(FLASH_CARDS_JSON_FILE)).toEqual([
       {
-        content: mockFlashCardContent
+        content: `<h1 id=\"question\">Question</h1>
+<p>This is a question</p>
+<h1 id=\"answer\">Answer</h1>
+<p>This is an answer</p>`
       }
     ]);
   });
