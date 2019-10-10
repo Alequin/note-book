@@ -89,7 +89,7 @@ const File = ({ name, to }) => (
 
 const Item = ({ name, onClick, image }) => (
   <ItemButton onClick={onClick}>
-    <img src={image}></img>
+    <img src={image} alt={name}></img>
     <p>Name: {name}</p>
   </ItemButton>
 );
@@ -103,7 +103,7 @@ const ItemSection = styled.section`
 
 const CurrentRouteSection = styled.p`
   display: flex;
-  alignitems: center;
+  align-items: center;
   font-size: 1rem;
 `;
 

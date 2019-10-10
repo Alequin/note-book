@@ -18,8 +18,8 @@ const useCurrentFlashCard = () => {
 const useShouldShowAnswer = () => {
   const [shouldShowAnswer, setShouldShowAnswer] = useState(false);
 
-  const setShowAnswer = useCallback(() => setShouldShowAnswer(true));
-  const setHideAnswer = useCallback(() => setShouldShowAnswer(false));
+  const setShowAnswer = useCallback(() => setShouldShowAnswer(true), []);
+  const setHideAnswer = useCallback(() => setShouldShowAnswer(false), []);
 
   return { shouldShowAnswer, setShowAnswer, setHideAnswer };
 };
