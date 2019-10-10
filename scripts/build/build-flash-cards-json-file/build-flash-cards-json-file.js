@@ -6,6 +6,7 @@ const {
   RAW_FLASH_CARDS_DIRECTORY,
   FLASH_CARDS_JSON_FILE
 } = require("../../../config/environment");
+const markdownToHtml = require("../markdown-to-html/markdown-to-html");
 
 const writeToJson = flashCardsList =>
   fs.writeJSONSync(FLASH_CARDS_JSON_FILE, flashCardsList);
@@ -13,7 +14,9 @@ const writeToJson = flashCardsList =>
 const readFilesContents = files =>
   files
     .filter(filePath => filePath.endsWith(".md"))
-    .map(filePath => ({ content: readMarkdownFile(filePath) }));
+    .map(filePath => ({
+      content: markdownToHtml(readMarkdownFile(filePath))
+    }));
 
 const buildFlashCardsJsonFile = flow(
   () => directoryContentsWithResolvedPaths(RAW_FLASH_CARDS_DIRECTORY),
