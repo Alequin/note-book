@@ -18,9 +18,7 @@ const CONFIG = require("../scripts-config/webpack.config")("production");
 
 asyncFlow(
   require("../remove-old-build-files"),
-  require("./build-routes-json-file/build-routes-json-file"),
-  require("./build-flash-cards-json-file/build-flash-cards-json-file"),
-  require("./build-encoded-image-json/build-encoded-image-json"),
+  require("./build-json-files"),
   require("./check-required-files-exist"),
   require("./check-browsers"),
   require("./copy-public-folder"),
