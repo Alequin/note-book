@@ -1,6 +1,6 @@
-const itemsToDisplay = require("./items-to-display");
+const transformToDisplayableItems = require("./transform-to-displayable-items");
 
-describe("itemsToDisplay", () => {
+describe("transformToDisplayableItems", () => {
   it("transforms routes to items to display", () => {
     const mockRoutes = [
       {
@@ -25,7 +25,7 @@ describe("itemsToDisplay", () => {
       { isDirectory: false, name: "File 0", to: "/file-0" },
       { isDirectory: true, name: "lvl-1" }
     ];
-    const actual = itemsToDisplay(mockRoutes, mockDirectoryDepth);
+    const actual = transformToDisplayableItems(mockRoutes, mockDirectoryDepth);
     expect(actual).toEqual(expected);
   });
 });

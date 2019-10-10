@@ -2,7 +2,7 @@ const { uniqBy, flow } = require("lodash");
 
 const removeDuplicateItems = items => uniqBy(items, "name");
 
-const identifyItemsToDisplay = (routes, directoryDepth) =>
+const transformToDisplayableItems = (routes, directoryDepth) =>
   routes.map(({ name, pathSegments, path }) => {
     const isDirectory = directoryDepth < pathSegments.length - 1;
     return isDirectory
@@ -18,6 +18,6 @@ const identifyItemsToDisplay = (routes, directoryDepth) =>
   });
 
 module.exports = flow(
-  identifyItemsToDisplay,
+  transformToDisplayableItems,
   removeDuplicateItems
 );
