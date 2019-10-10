@@ -4,7 +4,7 @@ const asyncFlow = require("async-flow");
 const readMarkdownFile = require("read-markdown-file");
 const removeExtensionFromFilePath = require("file-path/remove-extension-from-file-path");
 const fileNameFromPath = require("file-path/file-name-from-path");
-const markdownToHtml = require("./markdown-to-html/markdown-to-html");
+const markdownToHtml = require("../markdown-to-html/markdown-to-html");
 const allFilesInDirectory = require("./all-files-in-directory");
 const tags = require("./tags/tags");
 const markdownLastModifiedDate = require("./markdown-last-modified-date");
@@ -27,7 +27,7 @@ const makeNotesFileObject = ({ originalDirectory, filePaths }) =>
     );
     return {
       path: `/${path}`,
-      content: markdownToHtml(markdownContent).trim(),
+      content: markdownToHtml(markdownContent),
       pathSegments: path.split("/"),
       name: startCase(fileNameWithoutExtension(filePath)),
       tags: tags(markdownContent)
