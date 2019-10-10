@@ -12,7 +12,7 @@ describe("buildEncodedImageJson", () => {
   });
 
   it("creates a JSON image file", async () => {
-    fs.mkdirSync(ASSETS_DIRECTORY);
+    !fs.existsSync(ASSETS_DIRECTORY) && fs.mkdirSync(ASSETS_DIRECTORY);
     await buildEncodedImageJson();
     expect(fs.existsSync(IMAGES_JSON_FILE)).toBe(true);
   });
