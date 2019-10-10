@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import RouteExplorer from "./route-explorer/route-explorer";
+import TagExplorer from "./tag-explorer/tag-explorer";
 import FlashCards from "./flash-cards/flash-cards";
 import ROOTS from "./routes.json";
 
@@ -9,6 +10,9 @@ const Roots = () => (
     <Switch>
       <Route exact path="/route-explorer">
         <RouteExplorer />
+      </Route>
+      <Route exact path="/tag-explorer">
+        <TagExplorer />
       </Route>
       <Route exact path="/flash-cards">
         <FlashCards />
