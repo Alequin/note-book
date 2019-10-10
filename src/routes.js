@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import RouteExplorer from "./route-explorer/route-explorer";
+import FlashCards from "./flash-cards/flash-cards";
 import ROOTS from "./routes.json";
 
 const Roots = () => (
@@ -8,6 +9,9 @@ const Roots = () => (
     <Switch>
       <Route exact path="/route-explorer">
         <RouteExplorer />
+      </Route>
+      <Route exact path="/flash-cards">
+        <FlashCards />
       </Route>
       {ROOTS.map(({ path, content }, index) => (
         <Route key={index} exact path={path}>
