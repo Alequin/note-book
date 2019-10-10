@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import sortBy from "lodash/sortBy";
+import { lightGreyBorder, BlankButton } from "../shared-css";
 import filterRoutesToDisplay from "./filter-routes-to-display";
 import itemsToDisplay from "./items-to-display";
 
@@ -106,25 +107,13 @@ const CurrentRouteSection = styled.p`
   font-size: 1rem;
 `;
 
-const BlankButton = styled.button`
-  border: 0;
-  padding: 0;
-  background: transparent;
-  font-size: 1rem;
-`;
-
 const ItemBox = styled(BlankButton)`
   text-align: center;
   width: 100%;
   padding: 0;
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  &:hover {
-    border: 1px solid rgba(0, 0, 0, 0.3);
-  }
-  &:active {
-    border: 1px solid rgba(0, 0, 0, 0.3);
-  }
+  font-size: 1rem;
+  ${lightGreyBorder};
 `;
 
 export default RouteExplorer;
