@@ -4,7 +4,7 @@ import styled from "styled-components";
 import sortBy from "lodash/sortBy";
 import { lightGreyBorder, BlankButton } from "../shared-css";
 import filterRoutesToDisplay from "./filter-routes-to-display";
-import itemsToDisplay from "./items-to-display";
+import transformToDisplayableItems from "./transform-to-displayable-items";
 
 import images from "assets/images";
 import ROOTS from "../routes.json";
@@ -35,7 +35,7 @@ const RouteExplorer = () => {
     stepCurrentRouteBackBy
   } = useCurrentRoute();
 
-  const directoriesAndFilesToDisplay = itemsToDisplay(
+  const directoriesAndFilesToDisplay = transformToDisplayableItems(
     filterRoutesToDisplay(currentRoute, ROOTS),
     currentRoute.length
   );
