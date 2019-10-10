@@ -5,7 +5,7 @@
   "homepage": "https://alequin.github.io/note-book",
   "scripts": {
     "start": "node scripts/start",
-    "build": "node scripts/build/build-all",
+    "build-all": "node scripts/build-all/build-all",
     "test": "jest",
     "remove-old-build-files": "node scripts/remove-old-build-files",
     "build-routes-json-file": "node scripts/build/build-routes-json-file/build-routes-json-file"
