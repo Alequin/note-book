@@ -35,6 +35,11 @@ const useActiveTags = () => {
 const TagExplorer = () => {
   const { selectedTags, addTag, clearTags, removeTag } = useActiveTags();
 
+  const routesWithMatchingTags =
+    selectedTags.length > 0
+      ? ROOTS.filter(({ tags }) => tags.some(tag => selectedTags.includes(tag)))
+      : ROOTS;
+
   return (
     <Section>
       <SearchTags
@@ -43,6 +48,9 @@ const TagExplorer = () => {
         clearTags={clearTags}
         removeTag={removeTag}
       />
+      {routesWithMatchingTags.map(({ name, path }) => (
+        <div key={path}>{name}</div>
+      ))}
     </Section>
   );
 };
