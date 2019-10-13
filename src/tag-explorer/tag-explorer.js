@@ -1,41 +1,67 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import styled from "styled-components";
+import { useHistory, useLocation } from "react-router-dom";
 import ItemGrid from "../components/item-grid";
 import FileButton from "../components/file-button";
 import SearchTags from "./search-tags";
 
 import ROOTS from "../routes.json";
 
+const TAGS_QUERY_KEY = "tags";
+const TAG_DELIMETER = "%2C";
+
+const useTagsQueryValue = () => {
+  const { search } = useLocation();
+  return useMemo(() => {
+    const queryTags = new URLSearchParams(search).get(TAGS_QUERY_KEY);
+    return queryTags ? queryTags.split(",") : [];
+  }, [search]);
+};
+
 const useActiveTags = () => {
-  const [selectedTags, setSelectedTags] = useState([]);
+  const history = useHistory();
+  const selectedTags = useTagsQueryValue();
+
+  const setTags = useCallback(newTags => {
+    history.push({
+      search:
+        newTags.length > 0
+          ? `?${TAGS_QUERY_KEY}=${newTags.join(TAG_DELIMETER)}`
+          : ""
+    });
+  });
 
   const addTag = useCallback(
     tag => {
       const tagToAdd = tag.trim();
-      if (!tagToAdd) return;
-      setSelectedTags([...selectedTags, tagToAdd]);
+      tagToAdd && setTags([...selectedTags, tagToAdd]);
     },
-    [selectedTags, setSelectedTags]
+    [selectedTags, setTags]
+  );
+
+  const clearAllTags = useCallback(
+    () =>
+      history.push({
+        search: ""
+      }),
+    []
   );
 
   const removeTag = useCallback(
-    tagToRemove =>
-      setSelectedTags(selectedTags.filter(tag => tag !== tagToRemove)),
-    [selectedTags, setSelectedTags]
+    tagToRemove => setTags(selectedTags.filter(tag => tag !== tagToRemove)),
+    [selectedTags, clearAllTags]
   );
-
-  const clearTags = useCallback(() => setSelectedTags([]), []);
 
   return {
     selectedTags,
     addTag,
-    clearTags,
+    clearAllTags,
     removeTag
   };
 };
 
 const TagExplorer = () => {
-  const { selectedTags, addTag, clearTags, removeTag } = useActiveTags();
+  const { selectedTags, addTag, clearAllTags, removeTag } = useActiveTags();
 
   const routesWithMatchingTags =
     selectedTags.length > 0
@@ -47,7 +73,7 @@ const TagExplorer = () => {
       <SearchTags
         selectedTags={selectedTags}
         addTag={addTag}
-        clearTags={clearTags}
+        clearAllTags={clearAllTags}
         removeTag={removeTag}
       />
       <ItemGrid>
