@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import sortBy from "lodash/sortBy";
 import BlankButton from "../components/blank-button";
-import { lightGreyBorder } from "../shared-css";
+import DirectoryButton from "../components/directory-button";
+import FileButton from "../components/file-button";
 import filterRoutesToDisplay from "./filter-routes-to-display";
 import transformToDisplayableItems from "./transform-to-displayable-items";
 
-import images from "assets/images";
 import ROOTS from "../routes.json";
 
 const useCurrentRoute = () => {
@@ -54,13 +53,13 @@ const RouteExplorer = () => {
           ({ isDirectory }) => !isDirectory
         ).map(({ isDirectory, name, to }, index) =>
           isDirectory ? (
-            <Directory
+            <DirectoryButton
               key={index + name}
               name={name}
               onClick={() => addToCurrentRoute(name)}
             />
           ) : (
-            <File key={index + name} name={name} to={to}></File>
+            <FileButton key={index + name} name={name} to={to} />
           )
         )}
       </ItemSection>
@@ -79,23 +78,6 @@ const CurrentRoute = ({ currentRoute, stepCurrentRouteBackBy }) => (
   </CurrentRouteSection>
 );
 
-const Directory = ({ name, onClick }) => (
-  <Item name={name} onClick={onClick} image={images("folder")} />
-);
-
-const File = ({ name, to }) => (
-  <Link to={to}>
-    <Item name={name} image={images("file")} />
-  </Link>
-);
-
-const Item = ({ name, onClick, image }) => (
-  <ItemButton onClick={onClick}>
-    <img src={image} alt={name}></img>
-    <p>Name: {name}</p>
-  </ItemButton>
-);
-
 const ItemSection = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -107,15 +89,6 @@ const CurrentRouteSection = styled.p`
   display: flex;
   align-items: center;
   font-size: 1rem;
-`;
-
-const ItemButton = styled(BlankButton)`
-  text-align: center;
-  width: 100%;
-  padding: 0;
-  background: transparent;
-  font-size: 1rem;
-  ${lightGreyBorder};
 `;
 
 export default RouteExplorer;
