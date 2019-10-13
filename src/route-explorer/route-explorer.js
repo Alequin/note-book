@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import sortBy from "lodash/sortBy";
 import BlankButton from "../components/blank-button";
+import ItemGrid from "../components/item-grid";
 import DirectoryButton from "../components/directory-button";
 import FileButton from "../components/file-button";
 import filterRoutesToDisplay from "./filter-routes-to-display";
@@ -47,7 +48,7 @@ const RouteExplorer = () => {
         currentRoute={currentRoute}
         stepCurrentRouteBackBy={stepCurrentRouteBackBy}
       />
-      <ItemSection>
+      <ItemGrid>
         {sortBy(
           directoriesAndFilesToDisplay,
           ({ isDirectory }) => !isDirectory
@@ -62,7 +63,7 @@ const RouteExplorer = () => {
             <FileButton key={index + name} name={name} to={to} />
           )
         )}
-      </ItemSection>
+      </ItemGrid>
     </>
   );
 };
@@ -77,13 +78,6 @@ const CurrentRoute = ({ currentRoute, stepCurrentRouteBackBy }) => (
     ))}
   </CurrentRouteSection>
 );
-
-const ItemSection = styled.section`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 2vw;
-  grid-row-gap: 2vw;
-`;
 
 const CurrentRouteSection = styled.p`
   display: flex;
