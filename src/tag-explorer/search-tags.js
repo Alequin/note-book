@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+import UnstyledLink from "../components/unstyled-link";
 import BlankButton from "../components/blank-button";
+import { lightGreyBorder } from "../shared-css";
 
 const useTagsInput = () => {
   const [tagInputText, setTagInputText] = useState("");
@@ -21,7 +23,7 @@ const useTagsInput = () => {
   };
 };
 
-const SearchTags = ({ selectedTags, addTag, clearTags, removeTag }) => {
+const SearchTags = ({ selectedTags, addTag, clearAllTags, removeTag }) => {
   const {
     tagInputText,
     clearTagInputText,
@@ -36,15 +38,18 @@ const SearchTags = ({ selectedTags, addTag, clearTags, removeTag }) => {
         onChange={updateTagInputText}
         on
       />
-      <TagButton
+      <InlineTagButton
         onClick={useCallback(() => {
           addTag(tagInputText);
           clearTagInputText();
         }, [tagInputText, addTag])}
       >
         Add Tag
-      </TagButton>
-      <TagButton onClick={clearTags}>Clear Tags</TagButton>
+      </InlineTagButton>
+      <UnstyledLink to="browse-tags">
+        <InlineTagButton>Browse Tags</InlineTagButton>
+      </UnstyledLink>
+      <TagButton onClick={clearAllTags}>Clear Tags</TagButton>
       <ActiveTags tags={selectedTags} removeTag={removeTag}></ActiveTags>
       <Divider />
     </>
@@ -80,6 +85,12 @@ const TagButton = styled(BlankButton)`
   width: 100%;
   font-size: 1rem;
   padding: 0.5rem 0;
+  ${lightGreyBorder};
+`;
+
+const InlineTagButton = styled(TagButton)`
+  display: inline;
+  width: 50%;
 `;
 
 const ActiveTagButton = styled(BlankButton)`
