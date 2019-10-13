@@ -8,7 +8,9 @@ const useTags = () => {
   const [tagsToSearch, setTagsToSearch] = useState([]);
 
   const addTag = useCallback(() => {
-    setTagsToSearch([...tagsToSearch, tagInputText]);
+    const tagToAdd = tagInputText.trim();
+    if (!tagToAdd) return;
+    setTagsToSearch([...tagsToSearch, tagToAdd]);
     setTagInputText("");
   }, [tagsToSearch, tagInputText]);
 
