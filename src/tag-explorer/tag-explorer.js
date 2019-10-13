@@ -4,8 +4,26 @@ import { BlankButton } from "../shared-css";
 
 import ROOTS from "../routes.json";
 
-const useTags = () => {
+const useTagsInput = () => {
   const [tagInputText, setTagInputText] = useState("");
+
+  const clearTagInputText = useCallback(() => {
+    setTagInputText("");
+  }, [setTagInputText]);
+
+  const updateTagInputText = useCallback(
+    ({ target: { value } }) => setTagInputText(value),
+    [setTagInputText]
+  );
+
+  return {
+    tagInputText,
+    clearTagInputText,
+    updateTagInputText
+  };
+};
+
+const useActiveTags = () => {
   const [tagsToSearch, setTagsToSearch] = useState([]);
 
   const addTag = useCallback(
@@ -14,7 +32,7 @@ const useTags = () => {
       if (!tagToAdd) return;
       setTagsToSearch([...tagsToSearch, tagToAdd]);
     },
-    [tagsToSearch, setTagsToSearch, setTagInputText]
+    [tagsToSearch, setTagsToSearch]
   );
 
   const removeTag = useCallback(
@@ -25,36 +43,22 @@ const useTags = () => {
 
   const clearTags = useCallback(() => setTagsToSearch([]));
 
-  const clearTagInputText = useCallback(() => {
-    setTagInputText("");
-  }, [setTagInputText]);
-
-  const updateTagInputText = useCallback(
-    ({ target: { value } }) => setTagInputText(value),
-    []
-  );
-
   return {
-    tagInputText,
     tagsToSearch,
     addTag,
     clearTags,
-    removeTag,
-    clearTagInputText,
-    updateTagInputText
+    removeTag
   };
 };
 
 const TagExplorer = () => {
   const {
     tagInputText,
-    tagsToSearch,
-    addTag,
-    clearTags,
-    removeTag,
     clearTagInputText,
     updateTagInputText
-  } = useTags();
+  } = useTagsInput();
+
+  const { tagsToSearch, addTag, clearTags, removeTag } = useActiveTags();
 
   return (
     <Section>
