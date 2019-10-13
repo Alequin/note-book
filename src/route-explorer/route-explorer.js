@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import sortBy from "lodash/sortBy";
-import { lightGreyBorder, BlankButton } from "../shared-css";
+import BlankButton from "../components/blank-button";
+import { lightGreyBorder } from "../shared-css";
 import filterRoutesToDisplay from "./filter-routes-to-display";
 import transformToDisplayableItems from "./transform-to-displayable-items";
 
@@ -81,6 +82,7 @@ const CurrentRoute = ({ currentRoute, stepCurrentRouteBackBy }) => (
 const Directory = ({ name, onClick }) => (
   <Item name={name} onClick={onClick} image={images("folder")} />
 );
+
 const File = ({ name, to }) => (
   <Link to={to}>
     <Item name={name} image={images("file")} />

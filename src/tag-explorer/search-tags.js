@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import { BlankButton } from "../shared-css";
+import BlankButton from "../components/blank-button";
 
 const useTagsInput = () => {
   const [tagInputText, setTagInputText] = useState("");

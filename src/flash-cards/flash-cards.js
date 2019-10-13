@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import randomElement from "als-random/element";
-import { lightGreyBorder, BlankButton } from "../shared-css";
+import BlankButton from "../components/blank-button";
+import { lightGreyBorder } from "../shared-css";
 import FLASH_CARDS_LIST from "../flash-cards.json";
 
 const useCurrentFlashCard = () => {
