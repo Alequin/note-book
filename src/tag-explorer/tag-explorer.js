@@ -19,8 +19,8 @@ const useTags = () => {
 
   const removeTag = useCallback(
     tagToRemove =>
-      setTagInputText(tagsToSearch.filter(tag => tag !== tagToRemove)),
-    [tagsToSearch]
+      setTagsToSearch(tagsToSearch.filter(tag => tag !== tagToRemove)),
+    [tagsToSearch, setTagsToSearch]
   );
 
   const clearTags = useCallback(() => setTagsToSearch([]));
@@ -73,16 +73,18 @@ const TagExplorer = () => {
         Add Tag
       </TagButton>
       <TagButton onClick={clearTags}>Clear Tags</TagButton>
-      <ActiveTags tags={tagsToSearch}></ActiveTags>
+      <ActiveTags tags={tagsToSearch} removeTag={removeTag}></ActiveTags>
       <Divider />
     </Section>
   );
 };
 
-const ActiveTags = ({ tags }) => (
+const ActiveTags = ({ tags, removeTag }) => (
   <ActiveTagSection>
     {tags.map((tag, index) => (
-      <ActiveTagButton key={index + tag}>{tag}</ActiveTagButton>
+      <ActiveTagButton key={index + tag} onClick={() => removeTag(tag)}>
+        {tag}
+      </ActiveTagButton>
     ))}
   </ActiveTagSection>
 );
