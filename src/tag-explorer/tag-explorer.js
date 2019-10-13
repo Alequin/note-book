@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+import ItemGrid from "../components/item-grid";
+import FileButton from "../components/file-button";
 import SearchTags from "./search-tags";
 
 import ROOTS from "../routes.json";
@@ -48,9 +50,11 @@ const TagExplorer = () => {
         clearTags={clearTags}
         removeTag={removeTag}
       />
-      {routesWithMatchingTags.map(({ name, path }) => (
-        <div key={path}>{name}</div>
-      ))}
+      <ItemGrid>
+        {routesWithMatchingTags.map(({ name, path }) => (
+          <FileButton key={path} name={name} to={path} />
+        ))}
+      </ItemGrid>
     </Section>
   );
 };
