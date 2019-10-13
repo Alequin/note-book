@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+import { BlankButton } from "../shared-css";
 
 import ROOTS from "../routes.json";
 
@@ -13,7 +14,7 @@ const useTags = () => {
       if (!tagToAdd) return;
       setTagsToSearch([...tagsToSearch, tagToAdd]);
     },
-    [setTagsToSearch, setTagInputText]
+    [tagsToSearch, setTagsToSearch, setTagInputText]
   );
 
   const removeTag = useCallback(
@@ -21,6 +22,8 @@ const useTags = () => {
       setTagInputText(tagsToSearch.filter(tag => tag !== tagToRemove)),
     [tagsToSearch]
   );
+
+  const clearTags = useCallback(() => setTagsToSearch([]));
 
   const clearTagInputText = useCallback(() => {
     setTagInputText("");
@@ -35,6 +38,7 @@ const useTags = () => {
     tagInputText,
     tagsToSearch,
     addTag,
+    clearTags,
     removeTag,
     clearTagInputText,
     updateTagInputText
@@ -46,6 +50,7 @@ const TagExplorer = () => {
     tagInputText,
     tagsToSearch,
     addTag,
+    clearTags,
     removeTag,
     clearTagInputText,
     updateTagInputText
@@ -59,31 +64,38 @@ const TagExplorer = () => {
         onChange={updateTagInputText}
         on
       />
-      <AddTagButton
+      <TagButton
         onClick={useCallback(() => {
           addTag(tagInputText);
           clearTagInputText();
         }, [tagInputText, addTag])}
       >
         Add Tag
-      </AddTagButton>
-      <ActiveTagSection>
-        {tagsToSearch.map(tag => (
-          <ActiveTag>{tag}</ActiveTag>
-        ))}
-      </ActiveTagSection>
-      <hr />
+      </TagButton>
+      <TagButton onClick={clearTags}>Clear Tags</TagButton>
+      <ActiveTags tags={tagsToSearch}></ActiveTags>
+      <Divider />
     </Section>
   );
 };
 
+const ActiveTags = ({ tags }) => (
+  <ActiveTagSection>
+    {tags.map((tag, index) => (
+      <ActiveTagButton key={index + tag}>{tag}</ActiveTagButton>
+    ))}
+  </ActiveTagSection>
+);
+
 const Section = styled.section`
   margin: auto;
-  width: 80%;
+  width: 90%;
 `;
 
 const ActiveTagSection = styled.section`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const TagInput = styled.input`
@@ -94,16 +106,21 @@ const TagInput = styled.input`
   border: 1px solid black;
 `;
 
-const AddTagButton = styled.button`
+const TagButton = styled(BlankButton)`
   display: block;
   width: 100%;
   font-size: 1rem;
+  padding: 0.5rem 0;
 `;
 
-const ActiveTag = styled.div`
-  padding: 0.2rem;
+const ActiveTagButton = styled(BlankButton)`
+  padding: 0.5rem;
   margin: 0.1rem;
-  background: cyan;
+  border: 1px solid black;
+`;
+
+const Divider = styled.hr`
+  margin: 1rem 0;
 `;
 
 export default TagExplorer;
