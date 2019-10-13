@@ -7,12 +7,14 @@ const useTags = () => {
   const [tagInputText, setTagInputText] = useState("");
   const [tagsToSearch, setTagsToSearch] = useState([]);
 
-  const addTag = useCallback(() => {
-    const tagToAdd = tagInputText.trim();
-    if (!tagToAdd) return;
-    setTagsToSearch([...tagsToSearch, tagToAdd]);
-    setTagInputText("");
-  }, [tagsToSearch, tagInputText]);
+  const addTag = useCallback(
+    tag => {
+      const tagToAdd = tag.trim();
+      if (!tagToAdd) return;
+      setTagsToSearch([...tagsToSearch, tagToAdd]);
+    },
+    [setTagsToSearch, setTagInputText]
+  );
 
   const removeTag = useCallback(
     tagToRemove =>
@@ -20,12 +22,23 @@ const useTags = () => {
     [tagsToSearch]
   );
 
+  const clearTagInputText = useCallback(() => {
+    setTagInputText("");
+  }, [setTagInputText]);
+
   const updateTagInputText = useCallback(
     ({ target: { value } }) => setTagInputText(value),
     []
   );
 
-  return { tagInputText, tagsToSearch, addTag, removeTag, updateTagInputText };
+  return {
+    tagInputText,
+    tagsToSearch,
+    addTag,
+    removeTag,
+    clearTagInputText,
+    updateTagInputText
+  };
 };
 
 const TagExplorer = () => {
@@ -34,6 +47,7 @@ const TagExplorer = () => {
     tagsToSearch,
     addTag,
     removeTag,
+    clearTagInputText,
     updateTagInputText
   } = useTags();
 
@@ -45,8 +59,14 @@ const TagExplorer = () => {
         onChange={updateTagInputText}
         on
       ></input>
-      <button onClick={addTag}>add Tag</button>
-      <p>{tagInputText}</p>
+      <button
+        onClick={useCallback(() => {
+          addTag(tagInputText);
+          clearTagInputText();
+        }, [tagInputText, addTag])}
+      >
+        add Tag
+      </button>
       <ActiveTagSection>
         {tagsToSearch.map(tag => (
           <ActiveTag>{tag}</ActiveTag>
