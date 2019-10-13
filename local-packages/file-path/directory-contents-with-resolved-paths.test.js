@@ -3,6 +3,10 @@ const fs = require("fs-extra");
 const { RAW_NOTES_DIRECTORY } = require("../../config/environment");
 
 describe("directoryContentsWithResolvedPaths", () => {
+  beforeEach(() => {
+    fs.emptyDirSync(RAW_NOTES_DIRECTORY);
+  });
+
   afterEach(() => {
     fs.emptyDirSync(RAW_NOTES_DIRECTORY);
   });
