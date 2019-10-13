@@ -52,32 +52,52 @@ const TagExplorer = () => {
   } = useTags();
 
   return (
-    <>
-      <input
+    <Section>
+      <TagInput
         type="search"
         value={tagInputText}
         onChange={updateTagInputText}
         on
-      ></input>
-      <button
+      />
+      <AddTagButton
         onClick={useCallback(() => {
           addTag(tagInputText);
           clearTagInputText();
         }, [tagInputText, addTag])}
       >
-        add Tag
-      </button>
+        Add Tag
+      </AddTagButton>
       <ActiveTagSection>
         {tagsToSearch.map(tag => (
           <ActiveTag>{tag}</ActiveTag>
         ))}
       </ActiveTagSection>
-    </>
+      <hr />
+    </Section>
   );
 };
 
+const Section = styled.section`
+  margin: auto;
+  width: 80%;
+`;
+
 const ActiveTagSection = styled.section`
   display: flex;
+`;
+
+const TagInput = styled.input`
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  border: 1px solid black;
+`;
+
+const AddTagButton = styled.button`
+  display: block;
+  width: 100%;
+  font-size: 1rem;
 `;
 
 const ActiveTag = styled.div`
