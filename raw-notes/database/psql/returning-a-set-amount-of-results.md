@@ -16,7 +16,7 @@ In psql the two ways to return a specific number of results
 
 ## What is the difference
 
-There is no real performance difference between the two. The only difference is syntactic.
+There is no performance difference between the two. The only difference is syntactic.
 
 # References
 
