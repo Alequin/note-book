@@ -2,8 +2,10 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import UnstyledLink from "../components/unstyled-link";
 import BlankButton from "../components/blank-button";
+import Tag from "../components/tag";
+import useTagsQueryString from "../utils/use-tags-query-string";
+import TAGS_QUERY_KEY from "../utils/tags-query-key";
 import { lightGreyBorder } from "../shared-css";
-import useTagsQueryString from "./use-tags-query-string";
 
 const useTagsInput = () => {
   const [tagInputText, setTagInputText] = useState("");
@@ -32,6 +34,9 @@ const SearchTags = ({ tagsList, addTag, clearAllTags, removeTag }) => {
   } = useTagsInput();
 
   const tagsQueryString = useTagsQueryString();
+  const browseTagsQueryString = tagsQueryString
+    ? `?${TAGS_QUERY_KEY}=${tagsQueryString}`
+    : "";
 
   return (
     <>
@@ -49,7 +54,7 @@ const SearchTags = ({ tagsList, addTag, clearAllTags, removeTag }) => {
       >
         Add Tag
       </InlineTagButton>
-      <UnstyledLink to={`browse-tags?tags=${tagsQueryString}`}>
+      <UnstyledLink to={`browse-tags${browseTagsQueryString}`}>
         <InlineTagButton>Browse Tags</InlineTagButton>
       </UnstyledLink>
       <TagButton onClick={clearAllTags}>Clear Tags</TagButton>
@@ -62,9 +67,9 @@ const SearchTags = ({ tagsList, addTag, clearAllTags, removeTag }) => {
 const ActiveTags = ({ tags, removeTag }) => (
   <ActiveTagSection>
     {tags.map((tag, index) => (
-      <ActiveTagButton key={index + tag} onClick={() => removeTag(tag)}>
+      <Tag key={index + tag} onClick={() => removeTag(tag)}>
         {tag}
-      </ActiveTagButton>
+      </Tag>
     ))}
   </ActiveTagSection>
 );
