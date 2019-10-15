@@ -3,13 +3,14 @@ import styled from "styled-components";
 import UnstyledLink from "../components/unstyled-link";
 import BlankButton from "../components/blank-button";
 import { lightGreyBorder } from "../shared-css";
+import useTagsQueryString from "./use-tags-query-string";
 
 const useTagsInput = () => {
   const [tagInputText, setTagInputText] = useState("");
 
-  const clearTagInputText = useCallback(() => {
-    setTagInputText("");
-  }, [setTagInputText]);
+  const clearTagInputText = useCallback(() => setTagInputText(""), [
+    setTagInputText
+  ]);
 
   const updateTagInputText = useCallback(
     ({ target: { value } }) => setTagInputText(value),
@@ -23,12 +24,14 @@ const useTagsInput = () => {
   };
 };
 
-const SearchTags = ({ selectedTags, addTag, clearAllTags, removeTag }) => {
+const SearchTags = ({ tagsList, addTag, clearAllTags, removeTag }) => {
   const {
     tagInputText,
     clearTagInputText,
     updateTagInputText
   } = useTagsInput();
+
+  const tagsQueryString = useTagsQueryString();
 
   return (
     <>
@@ -46,11 +49,11 @@ const SearchTags = ({ selectedTags, addTag, clearAllTags, removeTag }) => {
       >
         Add Tag
       </InlineTagButton>
-      <UnstyledLink to="browse-tags">
+      <UnstyledLink to={`browse-tags?tags=${tagsQueryString}`}>
         <InlineTagButton>Browse Tags</InlineTagButton>
       </UnstyledLink>
       <TagButton onClick={clearAllTags}>Clear Tags</TagButton>
-      <ActiveTags tags={selectedTags} removeTag={removeTag}></ActiveTags>
+      <ActiveTags tags={tagsList} removeTag={removeTag}></ActiveTags>
       <Divider />
     </>
   );
