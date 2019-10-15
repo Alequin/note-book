@@ -12,7 +12,9 @@ const TagExplorer = () => {
 
   const routesWithMatchingTags =
     tagsList.length > 0
-      ? ROUTES.filter(({ tags }) => tags.some(tag => tagsList.includes(tag)))
+      ? ROUTES.filter(({ tags: fileTags }) =>
+          tagsList.every(tag => fileTags.includes(tag))
+        )
       : ROUTES;
 
   return (
