@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import UnstyledLink from "../components/unstyled-link";
-import BlankButton from "../components/blank-button";
+import Button from "../components/button";
 import Tag from "../components/tag";
 import useTagsQueryString from "../utils/use-tags-query-string";
 import TAGS_QUERY_KEY from "../utils/tags-query-key";
-import { lightGreyBorder } from "../shared-css";
 
 const useTagsInput = () => {
   const [tagInputText, setTagInputText] = useState("");
@@ -57,7 +56,7 @@ const SearchTags = ({ tagsList, addTag, clearAllTags, removeTag }) => {
       <UnstyledLink to={`browse-tags${browseTagsQueryString}`}>
         <InlineTagButton>Browse Tags</InlineTagButton>
       </UnstyledLink>
-      <TagButton onClick={clearAllTags}>Clear Tags</TagButton>
+      <Button onClick={clearAllTags}>Clear Tags</Button>
       <ActiveTags tags={tagsList} removeTag={removeTag}></ActiveTags>
       <Divider />
     </>
@@ -88,23 +87,9 @@ const TagInput = styled.input`
   border: 1px solid black;
 `;
 
-const TagButton = styled(BlankButton)`
-  display: block;
-  width: 100%;
-  font-size: 1rem;
-  padding: 0.5rem 0;
-  ${lightGreyBorder};
-`;
-
-const InlineTagButton = styled(TagButton)`
+const InlineTagButton = styled(Button)`
   display: inline;
   width: 50%;
-`;
-
-const ActiveTagButton = styled(BlankButton)`
-  padding: 0.5rem;
-  margin: 0.1rem;
-  border: 1px solid black;
 `;
 
 const Divider = styled.hr`
