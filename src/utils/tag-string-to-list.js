@@ -1,5 +1,4 @@
-const TAG_DELIMETER = "~";
-
+import TAG_DELIMETER from "./tag-delimeter";
 const tagStringToList = tagString =>
   tagString ? tagString.split(TAG_DELIMETER) : [];
 
