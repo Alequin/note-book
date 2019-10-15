@@ -1,32 +1,31 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ItemGrid from "../components/item-grid";
 import FileButton from "../components/file-button";
 import SearchTags from "./search-tags";
+import useTagsQueryString from "./use-tags-query-string";
+import tagStringToList from "./tag-string-to-list";
+import tagListToString from "./tag-list-to-string";
 
 import ROOTS from "../routes.json";
 
 const TAGS_QUERY_KEY = "tags";
-const TAG_DELIMETER = "%2C";
 
-const useTagsQueryValue = () => {
-  const { search } = useLocation();
-  return useMemo(() => {
-    const queryTags = new URLSearchParams(search).get(TAGS_QUERY_KEY);
-    return queryTags ? queryTags.split(",") : [];
-  }, [search]);
+const useTagsList = () => {
+  const tagsQueryString = useTagsQueryString();
+  return useMemo(() => tagStringToList(tagsQueryString), [tagsQueryString]);
 };
 
 const useActiveTags = () => {
   const history = useHistory();
-  const selectedTags = useTagsQueryValue();
+  const tagsList = useTagsList();
 
   const setTags = useCallback(newTags => {
     history.push({
       search:
         newTags.length > 0
-          ? `?${TAGS_QUERY_KEY}=${newTags.join(TAG_DELIMETER)}`
+          ? `?${TAGS_QUERY_KEY}=${tagListToString(newTags)}`
           : ""
     });
   });
@@ -34,26 +33,20 @@ const useActiveTags = () => {
   const addTag = useCallback(
     tag => {
       const tagToAdd = tag.trim();
-      tagToAdd && setTags([...selectedTags, tagToAdd]);
+      tagToAdd && setTags([...tagsList, tagToAdd]);
     },
-    [selectedTags, setTags]
+    [tagsList, setTags]
   );
 
-  const clearAllTags = useCallback(
-    () =>
-      history.push({
-        search: ""
-      }),
-    []
-  );
+  const clearAllTags = useCallback(() => setTags([]), []);
 
   const removeTag = useCallback(
-    tagToRemove => setTags(selectedTags.filter(tag => tag !== tagToRemove)),
-    [selectedTags, clearAllTags]
+    tagToRemove => setTags(tagsList.filter(tag => tag !== tagToRemove)),
+    [tagsList, clearAllTags]
   );
 
   return {
-    selectedTags,
+    tagsList,
     addTag,
     clearAllTags,
     removeTag
@@ -61,17 +54,17 @@ const useActiveTags = () => {
 };
 
 const TagExplorer = () => {
-  const { selectedTags, addTag, clearAllTags, removeTag } = useActiveTags();
+  const { tagsList, addTag, clearAllTags, removeTag } = useActiveTags();
 
   const routesWithMatchingTags =
-    selectedTags.length > 0
-      ? ROOTS.filter(({ tags }) => tags.some(tag => selectedTags.includes(tag)))
+    tagsList.length > 0
+      ? ROOTS.filter(({ tags }) => tags.some(tag => tagsList.includes(tag)))
       : ROOTS;
 
   return (
     <Section>
       <SearchTags
-        selectedTags={selectedTags}
+        tagsList={tagsList}
         addTag={addTag}
         clearAllTags={clearAllTags}
         removeTag={removeTag}
