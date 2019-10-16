@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import randomElement from "als-random/element";
-import BlankButton from "../components/blank-button";
-import { lightGreyBorder } from "../shared-css";
+import Button from "../components/button";
 import FLASH_CARDS_LIST from "../flash-cards.json";
 
 const useCurrentFlashCard = () => {
@@ -10,18 +9,18 @@ const useCurrentFlashCard = () => {
     randomElement(FLASH_CARDS_LIST)
   );
 
-  const nextRandomFlashCard = () =>
-    setCurrentFlashCard(randomElement(FLASH_CARDS_LIST));
+  const nextRandomFlashCard = useCallback(
+    () => setCurrentFlashCard(randomElement(FLASH_CARDS_LIST)),
+    [setCurrentFlashCard]
+  );
 
   return { currentFlashCard, nextRandomFlashCard };
 };
 
 const useShouldShowAnswer = () => {
   const [shouldShowAnswer, setShouldShowAnswer] = useState(false);
-
   const setShowAnswer = useCallback(() => setShouldShowAnswer(true), []);
   const setHideAnswer = useCallback(() => setShouldShowAnswer(false), []);
-
   return { shouldShowAnswer, setShowAnswer, setHideAnswer };
 };
 
@@ -35,10 +34,14 @@ const FlashCards = () => {
 
   return (
     <FlashCard>
-      <Section
+      <Button onClick={nextRandomFlashCard}>Next Flash Card</Button>
+      <Header>Question</Header>
+      <section
         dangerouslySetInnerHTML={{ __html: currentFlashCard.question }}
       />
-      <Section>
+      <section>
+        <hr />
+        <Header>Answer</Header>
         {shouldShowAnswer ? (
           <>
             <HideAnswerButton onClick={setHideAnswer}>
@@ -49,32 +52,36 @@ const FlashCards = () => {
             />
           </>
         ) : (
-          <ShowAnswerSection onClick={setShowAnswer}>
+          <ShowAnswerButton onClick={setShowAnswer}>
             <strong>Show Answer</strong>
-          </ShowAnswerSection>
+          </ShowAnswerButton>
         )}
-      </Section>
+      </section>
     </FlashCard>
   );
 };
 
 const FlashCard = styled.div`
   display: flex;
-  text-align: center;
   flex-direction: column;
   justify-content: space-around;
+
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
 `;
 
-const Section = styled.section`
-  margin: 2rem;
+const Header = styled.h1`
+  text-align: center;
+  font-size: 1.5rem;
 `;
 
-const HideAnswerButton = styled(BlankButton)`
-  ${lightGreyBorder};
+const HideAnswerButton = styled(Button)`
   padding: 0.5rem;
 `;
 
-const ShowAnswerSection = styled(BlankButton)`
+const ShowAnswerButton = styled(Button)`
   display: flex;
   width: 90%;
   height: 8.2rem;
@@ -82,7 +89,6 @@ const ShowAnswerSection = styled(BlankButton)`
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-  ${lightGreyBorder};
 `;
 
 export default FlashCards;
