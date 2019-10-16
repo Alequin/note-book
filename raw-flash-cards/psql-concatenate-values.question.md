@@ -1,0 +1,3 @@
+# Question
+
+In PSQL how do you concatenate the values from two columns?
