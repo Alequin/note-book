@@ -1,3 +1,1 @@
-# Question
-
-In PSQL when aliasing is the operator `AS` required?
+In PSQL is the operator `AS` required when providing an alias for a column or table?

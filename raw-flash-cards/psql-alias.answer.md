@@ -1,5 +1,3 @@
-# Question
-
 No, the following two examples are just as valid
 
 ```

@@ -1,5 +1,3 @@
-# Question
-
 1. In Javascript Which operation is faster
 
   - String concatination

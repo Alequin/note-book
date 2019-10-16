@@ -1,5 +1,3 @@
-# Answer 
-
 By using the string concatenation operator `||`
 
 This requires at least one of the values to be a string

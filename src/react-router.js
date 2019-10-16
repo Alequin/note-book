@@ -1,36 +1,91 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import RouteExplorer from "./route-explorer/route-explorer";
+import styled, { createGlobalStyle } from "styled-components";
+import UnstyledLink from "./components/unstyled-link";
+import Button from "./components/button";
 
+import Home from "./home/home";
 import TagExplorer from "./tag-explorer/tag-explorer";
 import FlashCards from "./flash-cards/flash-cards";
+import RouteExplorer from "./route-explorer/route-explorer";
 import BrowseTags from "./browse-tags/browse-tags";
 
-import ROOTS from "./routes.json";
+const GlobalStyle = createGlobalStyle`
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }
+  #root {
+    height: 98%;
+    width: 95%;
+    margin: auto;
+    padding: 1% 0 0 0;
+  }`;
 
 const ReactRouter = () => (
   <BrowserRouter>
+    <GlobalStyle />
     <Switch>
-      <Route exact path="/route-explorer">
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <RouteWithReturnButton path="/route-explorer">
         <RouteExplorer />
-      </Route>
-      <Route exact path="/tag-explorer">
+      </RouteWithReturnButton>
+      <RouteWithReturnButton path="/tag-explorer">
         <TagExplorer />
-      </Route>
-      <Route exact path="/flash-cards">
+      </RouteWithReturnButton>
+      <RouteWithReturnButton path="/flash-cards">
         <FlashCards />
-      </Route>
-      <Route exact path="/browse-tags">
+      </RouteWithReturnButton>
+      <RouteWithReturnButton path="/browse-tags">
         <BrowseTags />
-      </Route>
-      {ROOTS.map(({ path, content }, index) => (
-        <Route key={index} exact path={path}>
-          <div dangerouslySetInnerHTML={{ __html: content }} />
-        </Route>
-      ))}
+      </RouteWithReturnButton>
       <Route path="*">Route does not exist</Route>
     </Switch>
   </BrowserRouter>
 );
+
+const RouteWithReturnButton = ({ path, children }) => (
+  <Route path={path}>
+    <LayoutWrapper>
+      <RouteContent>{children}</RouteContent>
+      <Divider />
+      <BottomBar>
+        <FullLengthLink to="/">
+          <Button>Return Home</Button>
+        </FullLengthLink>
+      </BottomBar>
+    </LayoutWrapper>
+  </Route>
+);
+
+const LayoutWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const RouteContent = styled.div`
+  height: 90%;
+  overflow-y: scroll;
+`;
+
+const Divider = styled.hr`
+  width: 100%;
+  margin: 0;
+`;
+
+const BottomBar = styled.div`
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FullLengthLink = styled(UnstyledLink)`
+  width: 100%;
+`;
 
 export default ReactRouter;
