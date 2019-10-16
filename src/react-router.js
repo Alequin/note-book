@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import UnstyledLink from "./components/unstyled-link";
 import Button from "./components/button";
 
@@ -10,8 +10,22 @@ import FlashCards from "./flash-cards/flash-cards";
 import RouteExplorer from "./route-explorer/route-explorer";
 import BrowseTags from "./browse-tags/browse-tags";
 
+const GlobalStyle = createGlobalStyle`
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }
+  #root {
+    height: 98%;
+    width: 95%;
+    margin: auto;
+    padding: 1% 0 0 0;
+  }`;
+
 const ReactRouter = () => (
   <BrowserRouter>
+    <GlobalStyle />
     <Switch>
       <Route exact path="/">
         <Home />
@@ -50,12 +64,12 @@ const RouteWithReturnButton = ({ path, children }) => (
 const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 `;
 
 const RouteContent = styled.div`
   height: 90%;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 const Divider = styled.hr`
