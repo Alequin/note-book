@@ -27,7 +27,7 @@ const ReactRouter = () => (
   <BrowserRouter>
     <GlobalStyle />
     <Switch>
-      <Route exact path="/">
+      <Route exact path="/note-book/">
         <Home />
       </Route>
       <RouteWithReturnButton path="/route-explorer">
