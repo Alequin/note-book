@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import UnstyledLink from "./components/unstyled-link";
 import Button from "./components/button";
@@ -23,29 +23,30 @@ const GlobalStyle = createGlobalStyle`
     padding: 1% 0 0 0;
   }`;
 
-const ReactRouter = () => (
-  <BrowserRouter>
-    <GlobalStyle />
-    <Switch>
-      <Route exact path="/note-book">
-        <Home />
-      </Route>
-      <RouteWithReturnButton path="/route-explorer">
-        <RouteExplorer />
-      </RouteWithReturnButton>
-      <RouteWithReturnButton path="/tag-explorer">
-        <TagExplorer />
-      </RouteWithReturnButton>
-      <RouteWithReturnButton path="/flash-cards">
-        <FlashCards />
-      </RouteWithReturnButton>
-      <RouteWithReturnButton path="/browse-tags">
-        <BrowseTags />
-      </RouteWithReturnButton>
-      <Route path="*">Route does not exist</Route>
-    </Switch>
-  </BrowserRouter>
-);
+const ReactRouter = () =>
+  console.log(useLocation()) || (
+    <BrowserRouter>
+      <GlobalStyle />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <RouteWithReturnButton path="/route-explorer">
+          <RouteExplorer />
+        </RouteWithReturnButton>
+        <RouteWithReturnButton path="/tag-explorer">
+          <TagExplorer />
+        </RouteWithReturnButton>
+        <RouteWithReturnButton path="/flash-cards">
+          <FlashCards />
+        </RouteWithReturnButton>
+        <RouteWithReturnButton path="/browse-tags">
+          <BrowseTags />
+        </RouteWithReturnButton>
+        <Route path="*">Route does not exist</Route>
+      </Switch>
+    </BrowserRouter>
+  );
 
 const RouteWithReturnButton = ({ path, children }) => (
   <Route path={path}>
