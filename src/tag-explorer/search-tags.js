@@ -5,6 +5,7 @@ import Button from "../components/button";
 import Tag from "../components/tag";
 import useTagsQueryString from "../utils/use-tags-query-string";
 import TAGS_QUERY_KEY from "../utils/tags-query-key";
+import REACT_ROUTES from "../react-routes";
 
 const useTagsInput = () => {
   const [tagInputText, setTagInputText] = useState("");
@@ -53,7 +54,7 @@ const SearchTags = ({ tagsList, addTag, clearAllTags, removeTag }) => {
       >
         Add Tag
       </InlineTagButton>
-      <UnstyledLink to={`browse-tags${browseTagsQueryString}`}>
+      <UnstyledLink to={`${REACT_ROUTES.browseTags}${browseTagsQueryString}`}>
         <InlineTagButton>Browse Tags</InlineTagButton>
       </UnstyledLink>
       <Button onClick={clearAllTags}>Clear Tags</Button>
