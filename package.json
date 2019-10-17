@@ -9,7 +9,8 @@
     "build-json-files": "node scripts/build-all/build-json-files",
     "test": "jest",
     "remove-old-build-files": "node scripts/remove-old-build-files",
-    "build-routes-json-file": "node scripts/build/build-routes-json-file/build-routes-json-file"
+    "build-routes-json-file": "node scripts/build/build-routes-json-file/build-routes-json-file",
+    "new-flash-card": "node scripts/new-flash-card"
   },
   "dependencies": {
     "@babel/core": "7.6.0",
