@@ -9,14 +9,17 @@ const useActiveTags = () => {
   const history = useHistory();
   const tagsList = tagStringToList(useTagsQueryString());
 
-  const setTags = useCallback(newTags => {
-    history.push({
-      search:
-        newTags.length > 0
-          ? `?${TAGS_QUERY_KEY}=${tagListToString(newTags)}`
-          : ""
-    });
-  });
+  const setTags = useCallback(
+    newTags => {
+      history.push({
+        search:
+          newTags.length > 0
+            ? `?${TAGS_QUERY_KEY}=${tagListToString(newTags)}`
+            : ""
+      });
+    },
+    [history]
+  );
 
   const addTag = useCallback(
     tag => {
@@ -26,11 +29,11 @@ const useActiveTags = () => {
     [tagsList, setTags]
   );
 
-  const clearAllTags = useCallback(() => setTags([]), []);
+  const clearAllTags = useCallback(() => setTags([]), [setTags]);
 
   const removeTag = useCallback(
     tagToRemove => setTags(tagsList.filter(tag => tag !== tagToRemove)),
-    [tagsList, clearAllTags]
+    [tagsList, setTags]
   );
 
   return {

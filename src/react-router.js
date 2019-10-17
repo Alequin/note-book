@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import UnstyledLink from "./components/unstyled-link";
 import Button from "./components/button";
 
+import REACT_ROUTES from "./react-routes";
 import Home from "./home/home";
 import TagExplorer from "./tag-explorer/tag-explorer";
 import FlashCards from "./flash-cards/flash-cards";
@@ -27,24 +28,24 @@ const ReactRouter = () => (
   <BrowserRouter>
     <GlobalStyle />
     <Switch>
-      <Route exact path="/note-book/">
+      <Route exact path={REACT_ROUTES.home}>
         <Home />
       </Route>
-      <RouteWithReturnButton path="/route-explorer">
-        <RouteExplorer />
-      </RouteWithReturnButton>
-      <RouteWithReturnButton path="/tag-explorer">
-        <TagExplorer />
-      </RouteWithReturnButton>
-      <RouteWithReturnButton path="/flash-cards">
+      <RouteWithReturnButton path={REACT_ROUTES.flashCards}>
         <FlashCards />
       </RouteWithReturnButton>
-      <RouteWithReturnButton path="/browse-tags">
-        <BrowseTags />
+      <RouteWithReturnButton path={REACT_ROUTES.tagExplorer}>
+        <TagExplorer />
       </RouteWithReturnButton>
-      <Route path="*">
+      <RouteWithReturnButton path={REACT_ROUTES.browseTags}>
+        <BrowseTags />
+        <RouteWithReturnButton path={REACT_ROUTES.routeExplorer}>
+          <RouteExplorer />
+        </RouteWithReturnButton>
+      </RouteWithReturnButton>
+      <RouteWithReturnButton path="*">
         <BadRoutePage />
-      </Route>
+      </RouteWithReturnButton>
     </Switch>
   </BrowserRouter>
 );
@@ -55,7 +56,7 @@ const RouteWithReturnButton = ({ path, children }) => (
       <RouteContent>{children}</RouteContent>
       <Divider />
       <BottomBar>
-        <FullLengthLink to="/">
+        <FullLengthLink to={REACT_ROUTES.home}>
           <Button>Return Home</Button>
         </FullLengthLink>
       </BottomBar>

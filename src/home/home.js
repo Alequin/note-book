@@ -2,12 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import UnstyledLink from "../components/unstyled-link";
 import Button from "../components/button";
+import REACT_ROUTES from "../react-routes";
 
 const Home = () => (
   <FlexBox>
-    <HomePageButton to="/flash-cards">Flash Cards</HomePageButton>
-    <HomePageButton to="/tag-explorer">Tag Explorer</HomePageButton>
-    <HomePageButton to="/route-explorer">Route Explorer</HomePageButton>
+    <HomePageButton to={REACT_ROUTES.flashCards}>Flash Cards</HomePageButton>
+    <HomePageButton to={REACT_ROUTES.tagExplorer}>Tag Explorer</HomePageButton>
+    <HomePageButton to={REACT_ROUTES.routeExplorer}>
+      Route Explorer
+    </HomePageButton>
   </FlexBox>
 );
 
