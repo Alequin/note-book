@@ -50,7 +50,7 @@ const SearchTags = ({ tagsList, addTag, clearAllTags, removeTag }) => {
         onClick={useCallback(() => {
           addTag(tagInputText);
           clearTagInputText();
-        }, [tagInputText, addTag])}
+        }, [tagInputText, addTag, clearTagInputText])}
       >
         Add Tag
       </InlineTagButton>
