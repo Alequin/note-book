@@ -18,7 +18,8 @@ const getPathsForBothQuestionAndAnswerFiles = fileName => {
   ];
 };
 
-const makeNewFlashCardFiles = filePaths => filePaths.forEach(fs.writeFileSync);
+const makeNewFlashCardFiles = filePaths =>
+  filePaths.forEach(path => fs.writeFileSync(path, ""));
 
 flow(
   getFileNameFromConsoleArgs,
