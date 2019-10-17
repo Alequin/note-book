@@ -23,30 +23,31 @@ const GlobalStyle = createGlobalStyle`
     padding: 1% 0 0 0;
   }`;
 
-const ReactRouter = () =>
-  console.log(useLocation()) || (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <RouteWithReturnButton path="/route-explorer">
-          <RouteExplorer />
-        </RouteWithReturnButton>
-        <RouteWithReturnButton path="/tag-explorer">
-          <TagExplorer />
-        </RouteWithReturnButton>
-        <RouteWithReturnButton path="/flash-cards">
-          <FlashCards />
-        </RouteWithReturnButton>
-        <RouteWithReturnButton path="/browse-tags">
-          <BrowseTags />
-        </RouteWithReturnButton>
-        <Route path="*">Route does not exist</Route>
-      </Switch>
-    </BrowserRouter>
-  );
+const ReactRouter = () => (
+  <BrowserRouter>
+    <GlobalStyle />
+    <Switch>
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <RouteWithReturnButton path="/route-explorer">
+        <RouteExplorer />
+      </RouteWithReturnButton>
+      <RouteWithReturnButton path="/tag-explorer">
+        <TagExplorer />
+      </RouteWithReturnButton>
+      <RouteWithReturnButton path="/flash-cards">
+        <FlashCards />
+      </RouteWithReturnButton>
+      <RouteWithReturnButton path="/browse-tags">
+        <BrowseTags />
+      </RouteWithReturnButton>
+      <Route path="*">
+        <BadRoutePage />
+      </Route>
+    </Switch>
+  </BrowserRouter>
+);
 
 const RouteWithReturnButton = ({ path, children }) => (
   <Route path={path}>
@@ -60,6 +61,13 @@ const RouteWithReturnButton = ({ path, children }) => (
       </BottomBar>
     </LayoutWrapper>
   </Route>
+);
+
+const BadRoutePage = () => (
+  <>
+    <p> Route does not exist</p>
+    <p>{JSON.stringify(useLocation())}</p>
+  </>
 );
 
 const LayoutWrapper = styled.div`
