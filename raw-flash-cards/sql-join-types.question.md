@@ -1,0 +1,1 @@
+In SQL what are the different types of Joins

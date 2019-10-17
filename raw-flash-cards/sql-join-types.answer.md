@@ -1,0 +1,6 @@
+- Left / Right Inner Join 
+- Left / Right Outer Join
+- Full Outer Join
+- Self Join
+- Cross Join
+- Natural Join

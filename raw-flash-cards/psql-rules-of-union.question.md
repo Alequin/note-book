@@ -1,0 +1,1 @@
+In PSQL what rules are applied when using the `UNION` operator

@@ -1,0 +1,1 @@
+In PSQL what is the syntax for a query using the `UNION` operator
