@@ -1,0 +1,3 @@
+- All duplicate rows are removed (unless `UNION ALL` is used).
+- Both queries must return the same number of columns.
+- The corresponding columns in the queries must have compatible data types.

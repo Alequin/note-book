@@ -1,0 +1,1 @@
+In SQL how does the `HAVING` operator work?
