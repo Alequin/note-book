@@ -1,0 +1,1 @@
+In PSQL what is `GROUPING SETS` and why would you use it?

@@ -1,0 +1,1 @@
+In PSQL what does the subclause `CUBE` of the option `GROUPING SETS` do?
