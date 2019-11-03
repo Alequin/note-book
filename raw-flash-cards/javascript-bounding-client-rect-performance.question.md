@@ -1,0 +1,1 @@
+In Javascript / React should the function `getBoundingClientRect` be used in a React components render method?
