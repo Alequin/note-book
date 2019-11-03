@@ -1,0 +1,1 @@
+In PSQL what does the `EXISTS` clause do and how is it used.

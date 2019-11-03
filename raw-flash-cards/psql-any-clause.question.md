@@ -1,0 +1,1 @@
+In PSQL how are the clauses `ANY` and `ALL` used?
