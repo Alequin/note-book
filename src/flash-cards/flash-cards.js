@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+import over from "lodash/over";
 import randomElement from "als-random/element";
 import Button from "../components/button";
 import FLASH_CARDS_LIST from "../flash-cards.json";
@@ -34,7 +35,9 @@ const FlashCards = () => {
 
   return (
     <FlashCard>
-      <Button onClick={nextRandomFlashCard}>Next Flash Card</Button>
+      <Button onClick={over([setHideAnswer, nextRandomFlashCard])}>
+        Next Flash Card
+      </Button>
       <Header>Question</Header>
       <section
         dangerouslySetInnerHTML={{ __html: currentFlashCard.question }}
