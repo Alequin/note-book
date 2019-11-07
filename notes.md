@@ -11,3 +11,5 @@ https://medium.com/@gajus/lessons-learned-scaling-postgresql-database-to-1-2bn-r
 - Look into pg_stat_statments (order by total_time)
 
 ---
+
+- Look into database pages https://www.postgresql.org/docs/9.1/storage-page-layout.html
