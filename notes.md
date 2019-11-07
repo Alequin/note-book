@@ -13,3 +13,4 @@ https://medium.com/@gajus/lessons-learned-scaling-postgresql-database-to-1-2bn-r
 ---
 
 - Look into database pages https://www.postgresql.org/docs/9.1/storage-page-layout.html
+- Read article on psql performance https://thoughtbot.com/blog/advanced-postgres-performance-tips
