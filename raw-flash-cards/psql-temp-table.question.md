@@ -1,0 +1,1 @@
+In PSQL how would you use the clause `INTO` to create a temporary table, who could view the table and what would the life span of this table be?

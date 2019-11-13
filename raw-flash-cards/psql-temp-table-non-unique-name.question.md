@@ -1,0 +1,1 @@
+What would happen if you create a temporary table with the same name as a permanant table?

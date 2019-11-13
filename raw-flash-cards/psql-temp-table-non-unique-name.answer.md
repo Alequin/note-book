@@ -1,0 +1,1 @@
+When a temporary table and a permanant table share a name the result of querying the table name will come from the temporary table. The temp table will hide the permanant table (this is not advised).
