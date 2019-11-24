@@ -11,6 +11,8 @@ import FlashCards from "./flash-cards/flash-cards";
 import RouteExplorer from "./route-explorer/route-explorer";
 import BrowseTags from "./browse-tags/browse-tags";
 
+import ROUTES from "./routes.json";
+
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
     height: 100%;
@@ -28,7 +30,7 @@ const ReactRouter = () => (
   <BrowserRouter>
     <GlobalStyle />
     <Switch>
-      <Route exact path={REACT_ROUTES.home}>
+      <Route exact path={REACT_ROUTES.baseRoute}>
         <Home />
       </Route>
       <RouteWithReturnButton path={REACT_ROUTES.flashCards}>
@@ -39,10 +41,15 @@ const ReactRouter = () => (
       </RouteWithReturnButton>
       <RouteWithReturnButton path={REACT_ROUTES.browseTags}>
         <BrowseTags />
-        <RouteWithReturnButton path={REACT_ROUTES.routeExplorer}>
-          <RouteExplorer />
-        </RouteWithReturnButton>
       </RouteWithReturnButton>
+      <RouteWithReturnButton path={REACT_ROUTES.routeExplorer}>
+        <RouteExplorer />
+      </RouteWithReturnButton>
+      {ROUTES.map(({ path, content }) => (
+        <RouteWithReturnButton path={`${REACT_ROUTES.baseRoute}${path}`}>
+          <section dangerouslySetInnerHTML={{ __html: content }} />
+        </RouteWithReturnButton>
+      ))}
       <RouteWithReturnButton path="*">
         <BadRoutePage />
       </RouteWithReturnButton>
@@ -56,7 +63,7 @@ const RouteWithReturnButton = ({ path, children }) => (
       <RouteContent>{children}</RouteContent>
       <Divider />
       <BottomBar>
-        <FullLengthLink to={REACT_ROUTES.home}>
+        <FullLengthLink to={REACT_ROUTES.baseRoute}>
           <Button>Return Home</Button>
         </FullLengthLink>
       </BottomBar>
