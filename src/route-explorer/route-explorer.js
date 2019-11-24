@@ -8,7 +8,8 @@ import FileButton from "../components/file-button";
 import filterRoutesToDisplay from "./filter-routes-to-display";
 import transformToDisplayableItems from "./transform-to-displayable-items";
 
-import ROOTS from "../routes.json";
+import REACT_ROUTES from "../react-routes";
+import ROUTES from "../routes.json";
 
 const useCurrentRoute = () => {
   const [currentRoute, setCurrentRoute] = useState([]);
@@ -37,7 +38,7 @@ const RouteExplorer = () => {
   } = useCurrentRoute();
 
   const directoriesAndFilesToDisplay = transformToDisplayableItems(
-    filterRoutesToDisplay(currentRoute, ROOTS),
+    filterRoutesToDisplay(currentRoute, ROUTES),
     currentRoute.length
   );
 
@@ -60,7 +61,11 @@ const RouteExplorer = () => {
               onClick={() => addToCurrentRoute(name)}
             />
           ) : (
-            <FileButton key={index + name} name={name} to={to} />
+            <FileButton
+              key={index + name}
+              name={name}
+              to={`${REACT_ROUTES.baseRoute}${to}`}
+            />
           )
         )}
       </ItemGrid>
@@ -72,7 +77,10 @@ const CurrentRoute = ({ currentRoute, stepCurrentRouteBackBy }) => (
   <CurrentRouteSection>
     Current Path: /
     {currentRoute.map((pathSegment, index) => (
-      <BlankButton onClick={() => stepCurrentRouteBackBy(-index)}>
+      <BlankButton
+        key={pathSegment}
+        onClick={() => stepCurrentRouteBackBy(-index)}
+      >
         {pathSegment}/
       </BlankButton>
     ))}

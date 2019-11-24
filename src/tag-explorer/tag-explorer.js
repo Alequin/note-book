@@ -5,6 +5,7 @@ import FileButton from "../components/file-button";
 import useActiveTags from "../utils/use-active-tags";
 import SearchTags from "./search-tags";
 
+import REACT_ROUTES from "../react-routes";
 import ROUTES from "../routes.json";
 
 const TagExplorer = () => {
@@ -27,7 +28,11 @@ const TagExplorer = () => {
       />
       <ItemGrid>
         {routesWithMatchingTags.map(({ name, path }) => (
-          <FileButton key={path} name={name} to={path} />
+          <FileButton
+            key={path}
+            name={name}
+            to={`${REACT_ROUTES.baseRoute}${path}`}
+          />
         ))}
       </ItemGrid>
     </Section>
