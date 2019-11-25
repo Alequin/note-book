@@ -1,7 +1,9 @@
 - To create a temporary table
 
 ```
-SELECT * INTO TEMP temp_table_name FROM table_name;
+CREATE TEMP TABLE table_name(
+  ...
+);
 ```
 
 Temporary tables 
