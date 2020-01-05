@@ -1,0 +1,1 @@
+In functional programming what is **Partial Application**
