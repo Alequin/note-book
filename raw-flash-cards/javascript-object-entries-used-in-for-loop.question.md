@@ -1,0 +1,1 @@
+In Javascript how can the function `Object.entries()` be used to loop over an object with a for-each loop
