@@ -1,0 +1,1 @@
+In Javascript what do the functions `trimStart` `trimEnd` do?
