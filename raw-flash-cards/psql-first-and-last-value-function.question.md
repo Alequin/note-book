@@ -1,0 +1,1 @@
+In PSQL what do the functions `first_value()` and `last_value()` do and how can they be used?
