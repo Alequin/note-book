@@ -1,1 +1,0 @@
-In PSQL when using the function `rank()` what does `PARTITION BY` do?

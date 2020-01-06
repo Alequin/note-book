@@ -1,1 +1,0 @@
-In PSQL when using the function `row_number()` what does `PARTITION BY` do?
