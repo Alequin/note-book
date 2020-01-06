@@ -1,0 +1,1 @@
+In PSQL what is a CTE, what does it stand for and what is the syntax to use one?
