@@ -1,0 +1,1 @@
+In PSQL what would the index of an array be?
