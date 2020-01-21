@@ -1,0 +1,1 @@
+In Javascript what formatting can be done when using console.log?
