@@ -1,0 +1,1 @@
+In bash what command would you use to count the number of lines in a single file?

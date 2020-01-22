@@ -1,19 +1,26 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import styled from "styled-components";
-import over from "lodash/over";
+import { over, shuffle, isEmpty } from "lodash";
 import randomElement from "als-random/element";
 import Button from "../components/button";
 import FLASH_CARDS_LIST from "../flash-cards.json";
+
+const shuffledFlashCards = () => shuffle(FLASH_CARDS_LIST).slice(0, 20);
 
 const useCurrentFlashCard = () => {
   const [currentFlashCard, setCurrentFlashCard] = useState(
     randomElement(FLASH_CARDS_LIST)
   );
 
-  const nextRandomFlashCard = useCallback(
-    () => setCurrentFlashCard(randomElement(FLASH_CARDS_LIST)),
-    [setCurrentFlashCard]
-  );
+  const nextRandomFlashCard = useMemo(() => {
+    const flashCards = shuffledFlashCards();
+    return () => {
+      const nextFlashCard = flashCards.pop();
+      if (isEmpty(flashCards)) flashCards.push(...shuffledFlashCards());
+
+      setCurrentFlashCard(nextFlashCard);
+    };
+  }, [setCurrentFlashCard]);
 
   return { currentFlashCard, nextRandomFlashCard };
 };
