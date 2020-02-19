@@ -1,0 +1,1 @@
+In PSQL what does the function "COALESCE" do?

@@ -1,0 +1,1 @@
+In PSQL what are the 2 byte and and 8 bytes of the type SERIAL
