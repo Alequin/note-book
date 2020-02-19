@@ -1,1 +1,1 @@
-In Javascript what is the difference between classing function definition and arrow function definition
+In Javascript what is the difference between classic function definition and arrow function definition
