@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "./build/static/js/main.cfb74bc5.chunk.js",
+    "main.js.map": "./build/static/js/main.cfb74bc5.chunk.js.map",
+    "runtime-main.js": "./build/static/js/runtime-main.23268c5d.js",
+    "runtime-main.js.map": "./build/static/js/runtime-main.23268c5d.js.map",
+    "static/js/2.0e2b24bc.chunk.js": "./build/static/js/2.0e2b24bc.chunk.js",
+    "static/js/2.0e2b24bc.chunk.js.map": "./build/static/js/2.0e2b24bc.chunk.js.map",
+    "index.html": "./build/index.html"
+  }
+}
