@@ -1,0 +1,1 @@
+In PSQL what does the function `rank()` do and how can it be used?

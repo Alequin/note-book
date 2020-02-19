@@ -1,0 +1,1 @@
+What characters are valid for use in a Kafka topic name?

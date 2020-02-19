@@ -1,0 +1,1 @@
+In PSQL what does the function `row_number()` do and how can it be used?

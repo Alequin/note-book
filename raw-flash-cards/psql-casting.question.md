@@ -1,0 +1,1 @@
+In PSQL how do you cast between different data types?

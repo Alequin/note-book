@@ -1,0 +1,1 @@
+IN PSQL when working with window functions how would you control the frame used?

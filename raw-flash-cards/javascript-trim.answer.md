@@ -1,0 +1,1 @@
+Similar to `trim` only they remove white space from either the front (`trimStart`) or back (`trimEnd`) of the string
