@@ -1,0 +1,7 @@
+- Boolean
+- Number
+- String
+- BigInt
+- Symbol
+- Null
+- Undefined
