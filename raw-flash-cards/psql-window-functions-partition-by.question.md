@@ -1,0 +1,1 @@
+In PSQL window functions what does `PARTITION BY` do?

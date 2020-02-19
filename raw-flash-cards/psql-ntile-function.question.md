@@ -1,0 +1,1 @@
+In PSQL what does the function `ntile()` do and how can it be used?
