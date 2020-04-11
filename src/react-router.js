@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import UnstyledLink from "./components/unstyled-link";
 import Button from "./components/button";
@@ -10,6 +10,7 @@ import TagExplorer from "./tag-explorer/tag-explorer";
 import FlashCards from "./flash-cards/flash-cards";
 import RouteExplorer from "./route-explorer/route-explorer";
 import BrowseTags from "./browse-tags/browse-tags";
+import BadRoutePage from "./bad-route-page/bad-route-page";
 
 import ROUTES from "./routes.json";
 
@@ -69,13 +70,6 @@ const RouteWithReturnButton = ({ path, children }) => (
       </BottomBar>
     </LayoutWrapper>
   </Route>
-);
-
-const BadRoutePage = () => (
-  <>
-    <p> Route does not exist</p>
-    <p>{JSON.stringify(useLocation())}</p>
-  </>
 );
 
 const LayoutWrapper = styled.div`
