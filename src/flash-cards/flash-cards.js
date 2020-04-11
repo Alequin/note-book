@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from "react";
-import styled from "styled-components";
 import over from "lodash/over";
 import randomElement from "als-random/element";
 import Button from "../components/button";
 import FLASH_CARDS_LIST from "../flash-cards.json";
 import FlashCardViewer from "./flash-card-viewer";
+import PickFlashCard from "./pick-flash-card";
 
-const useCurrentFlashCard = () => {
+const useFlashCards = () => {
   const [currentFlashCard, setCurrentFlashCard] = useState(
     randomElement(FLASH_CARDS_LIST)
   );
@@ -16,7 +16,33 @@ const useCurrentFlashCard = () => {
     [setCurrentFlashCard]
   );
 
-  return { currentFlashCard, nextRandomFlashCard };
+  const setFlashCardByIndex = useCallback(
+    (index) => setCurrentFlashCard(FLASH_CARDS_LIST[index]),
+    [setCurrentFlashCard]
+  );
+
+  return { currentFlashCard, setFlashCardByIndex, nextRandomFlashCard };
+};
+
+const useShouldShowPickFlashCardPage = () => {
+  const [
+    shouldShowPickFlashCardPage,
+    setShouldShowPickFlashCardPage
+  ] = useState(false);
+
+  const setShowPickFlashCardPage = useCallback(() => {
+    setShouldShowPickFlashCardPage(true);
+  }, [shouldShowPickFlashCardPage]);
+
+  const setHidePickFlashCardPage = useCallback(() => {
+    setShouldShowPickFlashCardPage(false);
+  }, [shouldShowPickFlashCardPage]);
+
+  return {
+    shouldShowPickFlashCardPage,
+    setShowPickFlashCardPage,
+    setHidePickFlashCardPage
+  };
 };
 
 const useShouldShowAnswer = () => {
@@ -27,7 +53,18 @@ const useShouldShowAnswer = () => {
 };
 
 const FlashCards = () => {
-  const { currentFlashCard, nextRandomFlashCard } = useCurrentFlashCard();
+  const {
+    currentFlashCard,
+    setFlashCardByIndex,
+    nextRandomFlashCard
+  } = useFlashCards();
+
+  const {
+    shouldShowPickFlashCardPage,
+    setShowPickFlashCardPage,
+    setHidePickFlashCardPage
+  } = useShouldShowPickFlashCardPage();
+
   const {
     shouldShowAnswer,
     setShowAnswer,
@@ -36,15 +73,35 @@ const FlashCards = () => {
 
   return (
     <>
-      <Button onClick={over([setHideAnswer, nextRandomFlashCard])}>
+      <Button onClick={setShowPickFlashCardPage}>
+        Pick specific flash card
+      </Button>
+      <Button
+        onClick={over([
+          setHideAnswer,
+          nextRandomFlashCard,
+          setHidePickFlashCardPage
+        ])}
+      >
         Next Flash Card
       </Button>
-      <FlashCardViewer
-        currentFlashCard={currentFlashCard}
-        shouldShowAnswer={shouldShowAnswer}
-        setShowAnswer={setShowAnswer}
-        setHideAnswer={setHideAnswer}
-      />
+      <hr />
+      {shouldShowPickFlashCardPage ? (
+        <PickFlashCard
+          allFlashCards={FLASH_CARDS_LIST}
+          setFlashCardByIndex={over([
+            setFlashCardByIndex,
+            setHidePickFlashCardPage
+          ])}
+        />
+      ) : (
+        <FlashCardViewer
+          currentFlashCard={currentFlashCard}
+          shouldShowAnswer={shouldShowAnswer}
+          setShowAnswer={setShowAnswer}
+          setHideAnswer={setHideAnswer}
+        />
+      )}
     </>
   );
 };

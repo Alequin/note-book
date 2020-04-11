@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
 import Button from "../components/button";
@@ -39,6 +39,7 @@ const FlashCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 
   pre {
     white-space: pre-wrap;
@@ -56,8 +57,13 @@ const HideAnswerButton = styled(Button)`
 `;
 
 const ShowAnswerButton = styled(Button)`
+  width: 90vw;
+  @media only screen and (min-width: 768px) {
+    width: 50vw;
+  }
+
   display: flex;
-  width: 90%;
+  min-width: 90%;
   height: 8.2rem;
   margin: auto;
   justify-content: center;
