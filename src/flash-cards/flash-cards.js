@@ -32,11 +32,11 @@ const useShouldShowPickFlashCardPage = () => {
 
   const setShowPickFlashCardPage = useCallback(() => {
     setShouldShowPickFlashCardPage(true);
-  }, [shouldShowPickFlashCardPage]);
+  }, []);
 
   const setHidePickFlashCardPage = useCallback(() => {
     setShouldShowPickFlashCardPage(false);
-  }, [shouldShowPickFlashCardPage]);
+  }, []);
 
   return {
     shouldShowPickFlashCardPage,

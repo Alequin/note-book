@@ -48,7 +48,10 @@ const ReactRouter = () => (
         <RouteExplorer />
       </RouteWithReturnButton>
       {ROUTES.map(({ path, content }) => (
-        <RouteWithReturnButton path={`${REACT_ROUTES.baseRoute}${path}`}>
+        <RouteWithReturnButton
+          key={path}
+          path={`${REACT_ROUTES.baseRoute}${path}`}
+        >
           <>{ReactHtmlParser(content)}</>
         </RouteWithReturnButton>
       ))}
