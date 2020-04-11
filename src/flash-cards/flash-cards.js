@@ -1,13 +1,12 @@
-import React, { useState, useCallback, useMemo } from "react";
-import styled from "styled-components";
-import { over, shuffle, isEmpty } from "lodash";
+import React, { useState, useCallback } from "react";
+import over from "lodash/over";
 import randomElement from "als-random/element";
 import Button from "../components/button";
 import FLASH_CARDS_LIST from "../flash-cards.json";
+import FlashCardViewer from "./flash-card-viewer";
+import PickFlashCard from "./pick-flash-card";
 
-const shuffledFlashCards = () => shuffle(FLASH_CARDS_LIST).slice(0, 20);
-
-const useCurrentFlashCard = () => {
+const useFlashCards = () => {
   const [currentFlashCard, setCurrentFlashCard] = useState(
     randomElement(FLASH_CARDS_LIST)
   );
@@ -22,7 +21,33 @@ const useCurrentFlashCard = () => {
     };
   }, [setCurrentFlashCard]);
 
-  return { currentFlashCard, nextRandomFlashCard };
+  const setFlashCardByIndex = useCallback(
+    (index) => setCurrentFlashCard(FLASH_CARDS_LIST[index]),
+    [setCurrentFlashCard]
+  );
+
+  return { currentFlashCard, setFlashCardByIndex, nextRandomFlashCard };
+};
+
+const useShouldShowPickFlashCardPage = () => {
+  const [
+    shouldShowPickFlashCardPage,
+    setShouldShowPickFlashCardPage
+  ] = useState(false);
+
+  const setShowPickFlashCardPage = useCallback(() => {
+    setShouldShowPickFlashCardPage(true);
+  }, []);
+
+  const setHidePickFlashCardPage = useCallback(() => {
+    setShouldShowPickFlashCardPage(false);
+  }, []);
+
+  return {
+    shouldShowPickFlashCardPage,
+    setShowPickFlashCardPage,
+    setHidePickFlashCardPage
+  };
 };
 
 const useShouldShowAnswer = () => {
@@ -33,7 +58,18 @@ const useShouldShowAnswer = () => {
 };
 
 const FlashCards = () => {
-  const { currentFlashCard, nextRandomFlashCard } = useCurrentFlashCard();
+  const {
+    currentFlashCard,
+    setFlashCardByIndex,
+    nextRandomFlashCard
+  } = useFlashCards();
+
+  const {
+    shouldShowPickFlashCardPage,
+    setShowPickFlashCardPage,
+    setHidePickFlashCardPage
+  } = useShouldShowPickFlashCardPage();
+
   const {
     shouldShowAnswer,
     setShowAnswer,
@@ -41,64 +77,38 @@ const FlashCards = () => {
   } = useShouldShowAnswer();
 
   return (
-    <FlashCard>
-      <Button onClick={over([setHideAnswer, nextRandomFlashCard])}>
+    <>
+      <Button onClick={setShowPickFlashCardPage}>
+        Pick specific flash card
+      </Button>
+      <Button
+        onClick={over([
+          setHideAnswer,
+          nextRandomFlashCard,
+          setHidePickFlashCardPage
+        ])}
+      >
         Next Flash Card
       </Button>
-      <Header>Question</Header>
-      <section
-        dangerouslySetInnerHTML={{ __html: currentFlashCard.question }}
-      />
-      <section>
-        <hr />
-        <Header>Answer</Header>
-        {shouldShowAnswer ? (
-          <>
-            <HideAnswerButton onClick={setHideAnswer}>
-              Hide Answer
-            </HideAnswerButton>
-            <div
-              dangerouslySetInnerHTML={{ __html: currentFlashCard.answer }}
-            />
-          </>
-        ) : (
-          <ShowAnswerButton onClick={setShowAnswer}>
-            <strong>Show Answer</strong>
-          </ShowAnswerButton>
-        )}
-      </section>
-    </FlashCard>
+      <hr />
+      {shouldShowPickFlashCardPage ? (
+        <PickFlashCard
+          allFlashCards={FLASH_CARDS_LIST}
+          setFlashCardByIndex={over([
+            setFlashCardByIndex,
+            setHidePickFlashCardPage
+          ])}
+        />
+      ) : (
+        <FlashCardViewer
+          currentFlashCard={currentFlashCard}
+          shouldShowAnswer={shouldShowAnswer}
+          setShowAnswer={setShowAnswer}
+          setHideAnswer={setHideAnswer}
+        />
+      )}
+    </>
   );
 };
-
-const FlashCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-`;
-
-const Header = styled.h1`
-  text-align: center;
-  font-size: 1.5rem;
-`;
-
-const HideAnswerButton = styled(Button)`
-  padding: 0.5rem;
-`;
-
-const ShowAnswerButton = styled(Button)`
-  display: flex;
-  width: 90%;
-  height: 8.2rem;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-`;
 
 export default FlashCards;

@@ -14,11 +14,11 @@ import ROUTES from "../routes.json";
 const useCurrentRoute = () => {
   const [currentRoute, setCurrentRoute] = useState([]);
 
-  const addToCurrentRoute = newRouteSegment =>
+  const addToCurrentRoute = (newRouteSegment) =>
     setCurrentRoute([...currentRoute, newRouteSegment]);
 
   const resetToInitialRoute = () => setCurrentRoute([]);
-  const stepCurrentRouteBackBy = amount =>
+  const stepCurrentRouteBackBy = (amount) =>
     setCurrentRoute(currentRoute.slice(0, -amount));
 
   return {
@@ -44,7 +44,7 @@ const RouteExplorer = () => {
 
   return (
     <>
-      <button onClick={resetToInitialRoute}>Return to route directory</button>
+      <button onClick={resetToInitialRoute}>Return to root directory</button>
       <CurrentRoute
         currentRoute={currentRoute}
         stepCurrentRouteBackBy={stepCurrentRouteBackBy}
