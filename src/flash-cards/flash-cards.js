@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import over from "lodash/over";
+import { over } from "lodash";
 import randomElement from "als-random/element";
 import Button from "../components/button";
 import FLASH_CARDS_LIST from "../flash-cards.json";
@@ -11,15 +11,10 @@ const useFlashCards = () => {
     randomElement(FLASH_CARDS_LIST)
   );
 
-  const nextRandomFlashCard = useMemo(() => {
-    const flashCards = shuffledFlashCards();
-    return () => {
-      const nextFlashCard = flashCards.pop();
-      if (isEmpty(flashCards)) flashCards.push(...shuffledFlashCards());
-
-      setCurrentFlashCard(nextFlashCard);
-    };
-  }, [setCurrentFlashCard]);
+  const nextRandomFlashCard = useCallback(
+    () => randomElement(FLASH_CARDS_LIST),
+    []
+  );
 
   const setFlashCardByIndex = useCallback(
     (index) => setCurrentFlashCard(FLASH_CARDS_LIST[index]),
