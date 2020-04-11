@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
 import over from "lodash/over";
 import randomElement from "als-random/element";
@@ -39,9 +40,7 @@ const FlashCards = () => {
         Next Flash Card
       </Button>
       <Header>Question</Header>
-      <section
-        dangerouslySetInnerHTML={{ __html: currentFlashCard.question }}
-      />
+      <>{ReactHtmlParser(currentFlashCard.question)}</>
       <section>
         <hr />
         <Header>Answer</Header>
@@ -50,9 +49,7 @@ const FlashCards = () => {
             <HideAnswerButton onClick={setHideAnswer}>
               Hide Answer
             </HideAnswerButton>
-            <div
-              dangerouslySetInnerHTML={{ __html: currentFlashCard.answer }}
-            />
+            <>{ReactHtmlParser(currentFlashCard.answer)}</>
           </>
         ) : (
           <ShowAnswerButton onClick={setShowAnswer}>

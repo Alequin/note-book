@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
+import ReactHtmlParser from "react-html-parser";
 import UnstyledLink from "./components/unstyled-link";
 import Button from "./components/button";
 
@@ -48,7 +49,7 @@ const ReactRouter = () => (
       </RouteWithReturnButton>
       {ROUTES.map(({ path, content }) => (
         <RouteWithReturnButton path={`${REACT_ROUTES.baseRoute}${path}`}>
-          <section dangerouslySetInnerHTML={{ __html: content }} />
+          <>{ReactHtmlParser(content)}</>
         </RouteWithReturnButton>
       ))}
       <RouteWithReturnButton path="*">
