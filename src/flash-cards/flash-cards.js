@@ -8,17 +8,17 @@ import PickFlashCard from "./pick-flash-card";
 
 const useFlashCards = () => {
   const [currentFlashCard, setCurrentFlashCard] = useState(
-    randomElement(FLASH_CARDS_LIST)
+    randomElement(FLASH_CARDS_LIST),
   );
 
   const nextRandomFlashCard = useCallback(
-    () => randomElement(FLASH_CARDS_LIST),
-    []
+    () => setCurrentFlashCard(randomElement(FLASH_CARDS_LIST)),
+    [],
   );
 
   const setFlashCardByIndex = useCallback(
     (index) => setCurrentFlashCard(FLASH_CARDS_LIST[index]),
-    [setCurrentFlashCard]
+    [setCurrentFlashCard],
   );
 
   return { currentFlashCard, setFlashCardByIndex, nextRandomFlashCard };
@@ -27,7 +27,7 @@ const useFlashCards = () => {
 const useShouldShowPickFlashCardPage = () => {
   const [
     shouldShowPickFlashCardPage,
-    setShouldShowPickFlashCardPage
+    setShouldShowPickFlashCardPage,
   ] = useState(false);
 
   const setShowPickFlashCardPage = useCallback(() => {
@@ -41,7 +41,7 @@ const useShouldShowPickFlashCardPage = () => {
   return {
     shouldShowPickFlashCardPage,
     setShowPickFlashCardPage,
-    setHidePickFlashCardPage
+    setHidePickFlashCardPage,
   };
 };
 
@@ -56,19 +56,19 @@ const FlashCards = () => {
   const {
     currentFlashCard,
     setFlashCardByIndex,
-    nextRandomFlashCard
+    nextRandomFlashCard,
   } = useFlashCards();
 
   const {
     shouldShowPickFlashCardPage,
     setShowPickFlashCardPage,
-    setHidePickFlashCardPage
+    setHidePickFlashCardPage,
   } = useShouldShowPickFlashCardPage();
 
   const {
     shouldShowAnswer,
     setShowAnswer,
-    setHideAnswer
+    setHideAnswer,
   } = useShouldShowAnswer();
 
   return (
@@ -80,7 +80,7 @@ const FlashCards = () => {
         onClick={over([
           setHideAnswer,
           nextRandomFlashCard,
-          setHidePickFlashCardPage
+          setHidePickFlashCardPage,
         ])}
       >
         Next Flash Card
@@ -91,7 +91,7 @@ const FlashCards = () => {
           allFlashCards={FLASH_CARDS_LIST}
           setFlashCardByIndex={over([
             setFlashCardByIndex,
-            setHidePickFlashCardPage
+            setHidePickFlashCardPage,
           ])}
         />
       ) : (
